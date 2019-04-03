@@ -1,0 +1,1394 @@
+<resources>
+    <string name="app_name">PatternHelper</string>
+
+    <string name="strategy_definition">
+	<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+    Паттерн СТРАТЕГИЯ определяет семейство
+    алгоритмов, инкапсулирует каждый из них и обеспечивает их взаимозаменяемость.
+    Он позволяет модифицировать алгоритмы независимо от их использования на
+    стороне клиента.\n</string>
+    <string name="strategy_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		 <![CDATA[&#160;&#160;&#160;]]>1. <![CDATA[<b>Strategy</b>]]> - стратегия,
+			объявляет общий для всех поддерживаемых алгоритмов интерфейс. Класс
+		<![CDATA[<b>Context</b>]]> пользуется этим интерфейсом для вызова конкретного алгоритма,
+		определенного в классе <![CDATA[<b>ConcreteStrategy</b>]]>;<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;]]>2. <![CDATA[<b>ConcreteStrategy</b>]]> - конкретная стратегия,
+			реализует алгоритм, использующий интерфейс, объявленный в классе <![CDATA[<b>Strategy</b>]]>;<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;]]>3. <![CDATA[<b>Context</b>]]> - контекст,
+			конфигурируется объектом класса <![CDATA[<b>ConcreteStrategy</b>]]>.
+			Хранит ссылку на объект класса <![CDATA[<b>Strategy</b>]]>.
+			Может определять интерфейс, который позволяет объекту <![CDATA[<b>Strategy</b>]]> получить доступ
+		 к данным контекста.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;]]>* классы <![CDATA[<b>Strategy</b>]]> и
+			<![CDATA[<b>Context</b>]]> взаимодействуют для реализации выбранного алгоритма.
+		 Контекст может передавать стратегии все необходимые алгоритму данные в момент
+		 его вызова. Вместо этого контекст может позволить обращаться к своим операциям
+		 в нужные моменты, передав ссылку на самого себя операциям класса <![CDATA[<b>Strategy</b>]]>;<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;]]>* контекст адресует запросы своим клиентов объекту-стратегии.
+		 Обычно клиент создает объект <![CDATA[<b>ConcreteStrategy</b>]]> и передает его контексту, после
+		 чего клиент "общается" исключительно с контекстом. Часто в распоряжении
+		 клиента находится несколько классов <![CDATA[<b>ConcreteStrategy</b>]]>, которые он может выбирать.<![CDATA[<br>]]></string>
+    <string name="strategy_code">
+
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tContext context;\n
+        \t\t\t\t\t\tcontext = new Context( new ConcreteStrategyA() );\n
+        \t\t\t\t\t\tcontext.method();\n
+        \t\t\t\t\t\tcontext = new Context( new ConcreteStrategyB() );\n
+        \t\t\t\t\t\tcontext.method();\n
+        \t\t\t}\n
+        }\n
+        \n
+
+        class Context\n
+        {\n
+        \t\t\tIStrategy strategy;\n
+        \t\t\tpublic Context( IStrategy strategy )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tthis.strategy = strategy;\n
+        \t\t\t}\n
+        \t\t\tpublic void Method()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tstrategy.SomeAlgorithm();\n
+        \t\t\t}\n
+        }\n
+        \n
+
+        interface IStrategy\n
+        {\n
+        \t\t\tvoid SomeAlgorithm();\n
+        }\n
+        \n
+
+        class ConcreteStrategyA : IStrategy\n
+        {\n
+        \t\t\tpublic void SomeAlgorithm()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"concrete strategyA\" );\n
+        \t\t\t}\n
+        }\n
+
+        class ConcreteStrategyB : IStrategy\n
+        {\n
+        \t\t\tpublic void SomeAlgorithm()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"concrete strategyB\" );\n
+        \t\t\t}\n
+        }\n
+        \n
+</string>
+
+    <string name="observer_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Паттерн НАБЛЮДАТЕЛЬ - определяет отношение "один-ко-многим" между объектами
+        таким образом, что при изменении состояния одного объекта происходит автоматическое
+        оповещение и обновление всех зависимых объектов.\n
+    </string>
+    <string name="observer_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>IObservable</b>]]> - субъект. Располагает информацией о своих наблюдателях.
+        За субъектом может "следить" любое число наблюдателей. Предоставляет интерфейс
+        для добавления и удаления наблюдателей.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>IObserver</b>]]> - наблюдатель. Определяет интерфейс обновления для объектов, которые должны
+        быть уведомлены об изменении субъекта.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObservable</b>]]> - конкретный субъект. Сохраняет состояние, предоставляющее
+        интерес для конкретного наблюдателя <![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObserver</b>]]>. Посылает информацию своим
+        наблюдателям, когда происходит изменение состояния.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObserver</b>]]> - конкретный наблюдатель.
+        Хранит ссылку на объект класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observable</b>]]>.
+        Сохраняет данные, которые должны быть согласованы с данными субъекта. Реализует
+        интерфейс обновления, определенный в классе <![CDATA[<b>IObserver</b>]]>, чтобы поддерживать согласованность
+        с субъектом. <![CDATA[<br>]]>
+        <![CDATA[<br>]]>
+
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* объект <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observable</b>]]> уведомляет своих наблюдателей о любом изменении,
+        которое могло бы привести к рассогласованности состояний наблюдателя и субъекта.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* после получения от конкретного субъекта уведомления об изменении
+        объект <![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObserver</b>]]> может запросить у субъекта дополнительную информацию,
+        которую используют для того, чтобы оказаться в состоянии, согласованном с
+        состоянием субъекта.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* объект <![CDATA[<b>IObserver</b>]]>, который инициирует запрос на изменение, откладывает свое обновление
+        до получения уведомления от субъекта. Операция notify<![CDATA[<b>IObserver</b>]]> не всегда вызывается
+        субъектом. Ее может вызвать и наблюдатель.<![CDATA[<br>]]>
+    </string>
+    <string name="observer_code">
+         //Pull model\n
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
+        \t\t\t\t\t\tsubject.State = "new state";\n
+        \t\t\t\t\t\tsubject.NotifyObserver();\n
+        \t\t\t}\n
+        }\n
+        \n
+        interface IObservable\n
+        {\n
+        \t\t\tvoid RegisterObserver();\n
+        \t\t\tvoid RemoveObserver();\n
+        \t\t\tvoid NotifyObserver();\n
+        \t\t\tstring State {get; set;}\n
+        }\n
+        \n
+        interface IObserver\n
+        {\n
+        \t\t\tvoid Update();\n
+        }\n
+        \n
+        ConcreteObservable : IObservable\n
+        {\n
+        \t\t\tArrayList observers = new ArrayList();\n
+        \t\t\tpublic void RegisterObserver( IObserver observer )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tobservers.Add( observer );\n
+        \t\t\t}\n
+        \t\t\tpublic void RemoveObserver( IObserver observer )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tobservers.Remove( observer );\n
+        \t\t\t}\n
+        \t\t\tpublic void NotifyObserver()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tforeach( IObserver observer in observers )\n
+        \t\t\t\t\t\t\t\t\tobserver.Update();\n
+        \t\t\t}\n
+        \t\t\tpublic string State{ get; set; }\n
+        }\n
+        \n
+        class ConcreteObserver : IObserver\n
+        {\n
+        \t\t\tstring observerState;\n
+        \t\t\tIObservable subject;\n
+        \t\t\tpublic ConcreteObserver( IObservable subject )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tthis.subject = subject;\n
+        \t\t\t}\n
+        \t\t\tpublic void Update()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tobserverState = subject.State;\n
+        \t\t\t}\n
+        }\n
+        \n
+        \n
+        //Push model\n
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
+        \t\t\t\t\t\tsubject.State = "new state";\n
+        \t\t\t\t\t\tsubject.NotifyObserver();\n
+        \t\t\t}\n
+        }\n
+        \n
+        interface IObservable\n
+        {\n
+        \t\t\tvoid RegisterObserver();\n
+        \t\t\tvoid RemoveObserver();\n
+        \t\t\tvoid NotifyObserver();\n
+        }\n
+        \n
+        interface IObserver\n
+        {\n
+        \t\t\tvoid Update( string state );\n
+        }\n
+        \n
+        ConcreteObservable : IObservable\n
+        {\n
+        \t\t\tArrayList observers = new ArrayList();\n
+        \t\t\tpublic void RegisterObserver( IObserver observer )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tobservers.Add( observer );\n
+        \t\t\t}\n
+        \t\t\tpublic void RemoveObserver( IObserver observer )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tobservers.Remove( observer );\n
+        \t\t\t}\n
+        \t\t\tpublic void NotifyObserver()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tforeach( IObserver observer in observers )\n
+        \t\t\t\t\t\t\t\t\tobserver.Update( State );\n
+        \t\t\t}\n
+        \t\t\tprivate string State{ get; set; }\n
+        }\n
+        \n
+        class ConcreteObserver : IObserver\n
+        {\n
+        \t\t\tstring observerState;\n
+        \t\t\tIObservable subject;\n
+        \t\t\tpublic ConcreteObserver( IObservable subject )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tthis.subject = subject;\n
+        \t\t\t}\n
+        \t\t\tpublic void Update( string state )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tobserverState = state;\n
+        \t\t\t}\n
+        }\n
+        \n
+    </string>
+
+    <string name="abstract_factory_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Абстрактная фабрика предоставляет интерфейс
+        для создания семейств взаимосвязанных объектов
+        без указания их конкретных классов.\n
+    </string>
+    <string name="abstract_factory_diagram_description">
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>AbstractFactory</b>]]> - абстрактная фабрика.
+        Объявляет интерфейс для операций, создающих абстрактные объекты-продукты.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>ConcreteFactory</b>]]> - конкретная фабрика.
+        Реализует операции, создающие конкретные объекты-продукты.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>AbstractProduct</b>]]> - абстрактный продукт.
+        Объявляет интерфейс для типа объекта-продукта.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>ConcreteProduct</b>]]> - конкретный продукт.
+        Определяет объект-продукт, создаваемый соответствующей конкретной фабрикой.
+        Реализует интерфейс <![CDATA[<b>AbstractProduct</b>]]>.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент. Пользуется исключительно
+        интерфейсами, которые объявлены в классах <![CDATA[<b>AbstractFactory</b>]]> и <![CDATA[<b>AbstractProduct</b>]]>.
+        <![CDATA[<br>]]><![CDATA[<br>]]>
+
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* Обычно во время выполнения создается единственный
+        экземпляр класса <![CDATA[<b>ConcreteFactory</b>]]>. Эта конкретная фабрика создает объекты-продукты,
+        имеющие вполне определенную реализацию. Для создания других видов объектов клиент
+        должен воспользоваться другой конкретной фабрикой.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* <![CDATA[<b>AbstractFactory</b>]]> передоверяет создание
+        объектов-продуктов своему подклассу <![CDATA[<b>ConcreteFactory</b>]]>.
+    </string>
+    <string name="abstract_factory_code">
+        class Program\n
+        {\n
+        \t\t\tpublic static void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tClient client = null;\n
+        \t\t\t\t\t\tclient = new Client( new ConcreteFactory1() );\n
+        \t\t\t\t\t\tclient.Run();\n
+        \t\t\t\t\t\tclient = new Client( new ConcreteFactory2() );\n
+        \t\t\t\t\t\tclient.Run();\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Client\n
+        {\n
+        \t\t\tprivate AbstractProductA productA;\n
+        \t\t\tprivate AbstractProductB productB;\n
+        \t\t\tpublic Client( AbstractFactory factory )\n
+        \t\t\t{\n
+        \t\t\t//Абстрагирование процессов инстанцирования\n
+        \t\t\t\t\t\tproductA = factory.CreateProductA();\n
+        \t\t\t\t\t\tproductB = factory.CreateProductB();\n
+        \t\t\t}\n
+        \t\t\tpublic void Run()\n
+        \t\t\t{\n
+        \t\t\t//Абстрагирование вариантов использования\n
+        \t\t\t\t\t\tproductA.Interact( productB );\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class AbstractFactory\n
+        {\n
+        \t\t\tpublic abstract AbstractProductA CreateProductA();\n
+        \t\t\tpublic abstract AbstractProductB CreateProductB();\n
+        }\n
+        \n
+        class ConcreteFactory1 : AbstractFactory\n
+        {\n
+        \t\t\tpublic override AbstractProductA CreateProductA()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn new ProductA1();\n
+        \t\t\t}\n
+        \t\t\tpublic override AbstractProductB CreateProductB()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn new ProductB1();\n
+        \t\t\t}\n
+        }\n
+        \n
+        class ConcreteFactory2 : AbstractFactory\n
+        {\n
+        \t\t\tpublic override AbstractProductA CreateProductA()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn new ProductA2();\n
+        \t\t\t}\n
+        \t\t\tpublic override AbstractProductB CreateProductB()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn new ProductB2();\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class AbstractProductA\n
+        {\n
+        \t\t\tpublic void Interact( AbstractProductB productB );\n
+        }\n
+        \n
+        class ProductA1 : AbstractProductA \n
+        {\n
+        \t\t\tpublic override void Interact( AbstractProductB productB )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"productA1 interacts with \" + productB );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class ProductA2 : AbstractProductA \n
+        {\n
+        \t\t\tpublic override void Interact( AbstractProductB productB )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"productA2 interacts with \" + productB );\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class AbstractProductB{}\n
+        \n
+        class ProductB1 : AbstractProductB{}\n
+        \n
+        class ProductB2 : AbstractProductB{}\n
+        \n
+    </string>
+
+    <string name="factory_method_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Фабричный метод - паттерн, который определяет интерфейс
+        для создания объекта, но оставляет подклассам решение о том,
+        какой класс инстанцировать. Фабричный метод позволяет
+        классу делегировать инстанцирование подклассам.\n
+    </string>
+    <string name="factory_method_diagram_description">
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Product</b>]]> - продукт. Предоставляет интерфейс для взаимодействия с продуктами.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Creator</b>]]> - создатель. Предоставляет интерфейс (абстрактные фабричные методы)
+        для порождения продуктов. В частных случаях класс <![CDATA[<b>Creator</b>]]> может предоставлять
+        реализацию фабричных методов, которые возвращают экземпляры продуктов (<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Product</b>]]>).<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Product</b>]]> - конкретный продукт. Реализует интерфейс, предоставляемый
+        базовым классом <![CDATA[<b>Product</b>]]>.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Creator</b>]]> - конкретный создатель. Реализует интерфейс (фабричные методы)
+        предоставляемый базовым классом <![CDATA[<b>Creator</b>]]>.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* Класс <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Product</b>]]> связан связью отношения наследования с абстрактным
+        классом <![CDATA[<b>Product</b>]]>.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* Класс <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Creator</b>]]> связан связью отношения наследования с абстрактным
+        классом <![CDATA[<b>Creator</b>]]> и связью отношения зависимости с классом порождаемого продукта
+        <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Product</b>]]>.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;]]>	* Класс <![CDATA[<b>Creator</b>]]> предоставляет своим производным классам <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Creator</b>]]>
+        возможность самостоятельно выбрать вид создаваемого продукта, посредством реализации
+        метода FactoryMethod.<![CDATA[<br>]]>
+    </string>
+    <string name="factory_method_code">
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tCreator creator = null;\n
+        \t\t\t\t\t\tProduct product = null;\t\t\t\t\t\t\n
+        \t\t\t\t\t\tcreator = new ConcreteCreator();\n
+        \t\t\t\t\t\tproduct = creator.FactoryMethod();\t\t\t\t\t\t\n
+        \t\t\t\t\t\tcreator.AnOperation();\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class Product\n
+        {\n
+        }\n
+        \n
+        class ConcreteProduct : Product\n
+        {\n
+        \t\t\tpublic ConcreteProduct()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"СoncretePrоduct\" );\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class Creator\n
+        {\n
+        \t\t\tProduct product;\n
+        \t\t\tpublic abstract Product FactoryMethod();\n
+        \t\t\tpublic void AnOperation()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tproduct = FactoryMethod();\n
+        \t\t\t}\n
+        }\n
+        \n
+        class ConcreteCreator : Creator\n
+        {\n
+        \t\t\tpublic override Product FactoryMethod()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn new ConcreteProduct();\n
+        \t\t\t}\n
+        }\n
+        \n
+    </string>
+
+    <string name="singleton_definition">
+        <![CDATA[<b>Опредение:</b>]]><![CDATA[<br>]]>
+        Паттерн ОДИНОЧКА гарантирует, что в приложении
+        существует не более одного экземпляра данного
+        класса. Также паттерн предоставляет глобальную точку
+        доступа к этому экземпляру.
+    </string>
+    <string name="singleton_diagram_description">
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Класс Singleton не имеет обязательных связей отношений.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент получает доступ к экземпляру через вызов метода
+        Instance на классе-объекте Singleton.<![CDATA[<br>]]>
+    </string>
+    <string name="singleton_code">
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tSingleton uniqueGetInstance1 = Singleton.GetInstance();\n
+        \t\t\t\t\t\tSingleton uniqueGetInstance2 = Singleton.GetInstance();\n
+        \t\t\t\t\t\tConsole.WriteLine( ReferenceEquals( uniqueGetInstance1, uniqueGetInstance2 ) );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Singleton\n
+        {\n
+        \t\t\tprivate static volatile Singleton uniqueGetInstance = null;\n
+        \t\t\tprivate static object syncRoot = new Object();\n
+        \t\t\tprivate Singleton() {}\n
+        \t\t\t\n
+        \t\t\tpublic static Singleton GetInstance\n
+        \t\t\t{\n
+        \t\t\t\t\t\tget{\n
+        \t\t\t\t\t\t\t\t\tif ( uniqueGetInstance == null )\n
+        \t\t\t\t\t\t\t\t\t{\n
+        \t\t\t\t\t\t\t\t\t\t\t\tlock( syncRoot )\n
+        \t\t\t\t\t\t\t\t\t\t\t\t{\n
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\tif ( uniqueGetInstance == null )\n
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tuniqueGetInstance = new Singleton();\n
+        \t\t\t\t\t\t\t\t\t\t\t\t}\n
+        \t\t\t\t\t\t\t\t\t}\n
+        \t\t\t\t\t\t\t\t\treturn uniqueGetInstance;\n
+        \t\t\t\t\t\t}\t\t\t\t\t\t\n
+        \t\t\t}\n
+        }\n
+    </string>
+
+    <string name="adapter_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Паттерн АДАПТЕР преобразует интерфейс одного класса
+        в интерфейс другого, который ожидают клиенты. АДАПТЕР
+        обеспечивает совместную работу классов с несовместимыми
+        интерфейсами, которая без него была бы невозможна.
+    </string>
+    <string name="adapter_diagram_description">
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>		Target - целевой интерфейс, определяет требуемый клиенту интерфейс.
+        <![CDATA[&#160;&#160;&#160;&#160;]]>		Client - клиент, пользуется объектами с интерфейсом Target.
+        <![CDATA[&#160;&#160;&#160;&#160;]]>		Adaptee - адаптируемый класс, содержит набор методов, требующих адаптации.
+        <![CDATA[&#160;&#160;&#160;&#160;]]>		Adapter - Адаптер, преобразует интерфейс Adaptee к Target.<![CDATA[<br>]]>
+        <![CDATA[<br>]]>
+
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент вызывает методы на экземпляре класса Adapter. Adapter в свою очередь вызывает методы адаптируемого объекта или класса Adaptee.
+
+    </string>
+    <string name="adapter_code">
+        //Адаптер уровня классов\n
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tTarget target = new Adapter();\n
+        \t\t\t\t\t\ttarget.Request();\n
+        \t\t\t}\n
+        }\n
+        \n
+        interface Target\n
+        {\n
+        \t\t\tvoid Request();\n
+        }\n
+        \n
+        class Adaptee\n
+        {\n
+        \t\t\tpublic void SpecificRequest()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"SpecificRequest\" );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Adapter : Adaptee, Target\n
+        {\n
+        \t\t\tpublic void Request()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tSpecifecRequest();\n
+        \t\t\t}\n
+        }\n
+        \n
+        \n
+        //Адаптер уровня объектов\n
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tTarget target = new Adapter();\n
+        \t\t\t\t\t\ttarget.Request();\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class Target\n
+        {\n
+        \t\t\tpublic abstract void Request();\n
+        }\n
+        \n
+		class Adaptee\n
+		{\n
+		\t\t\tpublic void SpecifecRequest()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( \"SpecificRequest\" );\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Adapter\n
+		{\n
+		\t\t\tAdaptee adaptee = new Adaptee();\n
+		\t\t\t\n
+		\t\t\tpublic override void Request()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tadaptee.SpecificRequest();\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+    </string>
+
+    <string name="decorator_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Паттерн ДЕКОРАТОР - динамически наделяет объект
+        новыми возможностями, и является гибкой альтернативой
+        субклассированию в области расширения функциональности.
+    </string>
+    <string name="decorator_diagram_description">
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	Component - компонент, определяет интерфейс для объектов,
+        на которые могут быть динамически возложены дополнительные обязанности.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	ConcreteComponent - конкретный компонет, определяет объект,
+        на который возлагаются дополнительные обязанности. По сути, является
+        классом целевого объекта, который должен быть декорирован.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	Decorator - декоратор, хранит ссылку на объект Component
+        и определяет интерфейс, соответствующий интерфейсу Component.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	ConcreteDecorator - конкретный декоратор, возлагает дополнительные
+        обязанности на компонент. Т.е. содержит дополнительную функциональность,
+        которой будет расширяться целевой объект. <![CDATA[<br>]]>
+
+        <![CDATA[<br>]]>
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Decorator переадресует запросы объекту Component. Может выполнять
+        дополнительные операции до и после переадресации.
+    </string>
+    <string name="decorator_code">
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tComponent component = new ConcreteComponent();\n
+        \t\t\t\t\t\tDecorator decoratorA = new ConcreteDecoratorA();\n
+        \t\t\t\t\t\tDecorator decoratorB = new ConcreteDecoratorB();\n
+        \t\t\t\t\t\t\n
+        \t\t\t\t\t\tdecoratorA.component = component;\n
+        \t\t\t\t\t\tdecoratorB.component = decoratorA;\n
+        \t\t\t\t\t\tdecoratorB.Operation();\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class Component\n
+        {\n
+        \t\t\tpublic abstract void Operation();\n
+        }\n
+        \n
+        class ConcreteComponent : Component\n
+        {\n
+        \t\t\tpublic override void Operation()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"СoncreteСomponent\" );\n
+        \t\t\t}\n
+        }\n
+        \n
+        abstract class Decorator : Component\n
+        {\n
+        \t\t\tpublic Component component { protected get; set; }\n
+        \t\t\tpublic override void Operation()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tif ( component != null )\n
+        \t\t\t\t\t\t\t\t\tcomponent.Operation();\n
+        \t\t\t}\n
+        }\n
+        \n
+        class ConcreteDecoratorA : Decorator\n
+        {\n
+        \t\t\tstring state = \"some state\";\n
+        \t\t\tpublic override void Operation()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tbase.Operation();\n
+        \t\t\t\t\t\tConsole.WriteLine( state );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class ConcreteDecoratorB : Decorator\n
+        {\n
+        \t\t\tprivate void SomeMethod()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"doing something\" );\n
+        \t\t\t}\n
+        \t\t\tpublic override void Operation()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tbase.Operation();\n
+        \t\t\t\t\t\tSomeMethod();\n
+        \t\t\t}\n
+        }\n
+        \n
+        //Кофейный пример: \n
+        class Program\n
+        {\n
+        \t\t\tBeverage beverage = new Espresso();\n
+        \t\t\t\n
+        \t\t\t//Заворачиваем объект Espressо в Mоcha\n
+        \t\t\tbeverage = new Mocha( beverage );\n
+        \n
+        \t\t\t//Еще раз!\n
+        \t\t\tbeverage = new Mocha( beverage );\n
+        \n
+        \t\t\t//Добавим сливки!\n
+        \t\t\tbeverage = new Whip( beverage );\n
+        \t\t\tConsole.WriteLine( beverage.GetDescription() + " $" + beverage.Cost() );\n
+        }\n
+        \n
+        //Cоmponent\n
+        public abstract class Beverage \n
+        {\n
+        \t\t\tstring description = \"Unknown Bеverage\";\n
+        \t\t\t\n
+        \t\t\tpublic string GetDescription()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn description;\n
+        \t\t\t}\n
+        \t\t\tpublic abstract double Cost();\n
+        }\n
+        \n
+        //CоncreteCompоnent\n
+        public class Espresso : Beverage\n
+        {\n
+        \t\t\tpublic Espresso()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tdescription = \"Еspresso\";\n
+        \t\t\t}\n
+        \t\t\tpublic double Cost()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn 2.00;\n
+        \t\t\t}\n
+        }\n
+        \n
+        //Decоrator\n
+        public abstract class CondimentDecorator : Beverage\n
+        {\n
+        \t\t\tpublic abstract string GetDescription();\n
+        }\n
+        \n
+        //CоncreteDecоrator\n
+        public class Mocha : CondimentDecorator\n
+        {\n
+        \t\t\tBeverage beverage;\n
+        \t\t\t\n
+        \t\t\tpublic Mocha( Beverage beverage )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tthis.beverage = beverage;\n
+        \t\t\t}\n
+        \t\t\t\n
+        \t\t\tpublic override string GetDescription()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn beverage.GetDescription() + \", Mоcha\";\n
+        \t\t\t}\n
+        \t\t\t\n
+        \t\t\tpublic double Cost()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn 0.20 + beverage.Cost();\n
+        \t\t\t}\n
+        }\n
+        \n
+        //CоncreteDecоrator\n
+        public class Whip : CondimentDecorator\n
+        {\n
+        \t\t\tBeverage beverage;\n
+        \t\t\t\n
+        \t\t\tpublic Whip( Beverage beverage )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tthis.beverage = beverage;\n
+        \t\t\t}\n
+        \t\t\t\n
+        \t\t\tpublic override string GetDescription()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn beverage.GetDescription() + \", Whiр\";\n
+        \t\t\t}\n
+        \t\t\t\n
+        \t\t\tpublic double Cost()\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn 0.35 + beverage.Cost();\n
+        \t\t\t}\n
+        }\n
+        \n
+    </string>
+
+    <string name="composite_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн КОМПОНОВЩИК - объединяет объекты в древовидные структуры
+		для представления иерархий "часть-целое". КОМПОНОВЩИК предоставляет
+		структуру для хранения как отдельных объектов, так и комбинаций.
+		Паттерн позволяет клиенту выполнять однородные операции с комбинациями
+		и отдельными объектами. В реализации паттерна приходится искать баланс
+		между прозрачностью и безопасностью.
+	</string>
+    <string name="composite_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Component</b>]]> - компонент, предоставляет интерфейс для объектов из которых составляется
+		дерево. В частном случае может предоставлять реализацию по умолчанию для некоторых методов.
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Leaf</b>]]> - лист, является классом листовых узлов дерева и не может иметь потомков, т.е.,
+		включать в себя объекты относящиеся к структуре дерева (из листа не может вырасти ветвь или другой лист).
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Composite</b>]]> - составной объект, задает поведение объектов, входящих в структуру дерева,
+		у которых есть потомки, а также сам хранит в себе компоненты дерева (объекты потомки), как узловые, так и листовые. Реализует методы интерфейса <![CDATA[<b>Component</b>]]>, относящиеся к управлению потомками.
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, манипулирует объектами, входящими в структуру дерева, через
+		интерфейс, предоставляемый классом <![CDATA[<b>Component</b>]]>.
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиенты (<![CDATA[<b>Client</b>]]>) взаимодействуют с элементами, входящими в состав дерева, через
+		интерфейс (набор методов) предоставленный абстрактным классом <![CDATA[<b>Component</b>]]>.
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Если метод вызывается на листовом объекте (<![CDATA[<b>Leaf</b>]]>), то объект <![CDATA[<b>Leaf</b>]]>
+		и обрабатывает поступивший запрос (т.е. выполняет функциональность, заложенную в тело его метода).
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Если метод вызывается на составном (узловом) объекте (<![CDATA[<b>Composite</b>]]>), то объект
+		<![CDATA[<b>Composite</b>]]> перенаправляет запрос (вызывает метод) своим потомкам, возможно при этом выполняя некоторые дополнительные действия до или после перенаправления запроса.
+	</string>
+    <string name="composite_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tComponent root = new Composite( "ROOT" );\n
+		\t\t\t\t\t\tComponent branch1 = new Composite( "BR1" );\n
+		\t\t\t\t\t\tComponent branch2 = new Composite( "BR2" );\n
+		\t\t\t\t\t\tComponent leaf1 = new Leaf( "L1" );\n
+		\t\t\t\t\t\tComponent leaf2 = new Leaf( "L2" );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\troot.Add( branch1 );\n
+		\t\t\t\t\t\troot.Add( branch2 );\n
+		\t\t\t\t\t\tbranch1.Add( leaf1 );\n
+		\t\t\t\t\t\tbranch2.Add( leaf2 );\n
+		\t\t\t\t\t\troot.Operation();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Component\n
+		{\n
+		\t\t\tprotected string name;\n
+		\t\t\t\n
+		\t\t\tpublic Component( string name )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.name = name;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic abstract void Operation();\n
+		\t\t\tpublic abstract void Add( Component component );\n
+		\t\t\tpublic abstract void Remove( Component component );\n
+		\t\t\tpublic abstract Component GetChild( int index );\n
+		}\n
+		\n
+		class Leaf : Component\n
+		{\n
+		\t\t\tpublic Leaf( string name ) : base( name ){}\n
+		\t\t\t\n
+		\t\t\tpublic override void Operation()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( name );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void Add( Component component )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthrow new InvalidOperationException();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void Remove( Component component )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthrow new InvalidOperationException();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override Component GetChild( int index )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthrow new InvalidOperationException();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Composite : Component\n
+		{\n
+		\t\t\tArrayList nodes = new ArrayList();\n
+		\t\t\t\n
+		\t\t\tpublic Composite( string name ) : base( name ){}\n
+		\t\t\t\n
+		\t\t\tpublic override void Operation()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( name );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tforeach ( Component component in nodes )\n
+		\t\t\t\t\t\t\t\t\tcomponent.Operation();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void Add( Component component )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tnodes.Add( component );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void Remove( Component component )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tnodes.Remove( component );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override Component GetChild( int index )\n
+		\t\t\t{\n
+		\t\t\t\t\t\treturn nodes[ index ] as Component;\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+		\n
+	</string>
+
+    <string name="facade_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Паттерн ФАСАД - предоставляет унифицированный интерфейс
+        вместо набора интерфейсов некоторой подсистемы. ФАСАД определяет
+        интерфейс более высокого уровня, который упрощает использование
+        подсистемы.
+    </string>
+    <string name="facade_diagram_description">
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	Facade - фасад, делегирует запросы от клиента объектам подсистемы.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	Classes subsystem - классы подсистемы. Реализуют фактическую функциональность подсистемы. ничего не знают о фасаде, т.е. не хранят на него ссылок.<![CDATA[<br>]]>
+
+        <![CDATA[<br>]]>
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиенты общаются с объектами подсистем, через фасад. Фасад переадресует запросы клиентов подходящим объектам подсистемы.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиенты, пользующиеся фасадом, не имеют прямого доступа к объектам подсистемы.
+    </string>
+    <string name="facade_code">
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tFacade facade = new Facade();\n
+        \t\t\t\t\t\tfacade.OperationAB();\n
+        \t\t\t\t\t\tfacade.OperationBC();\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Facade\n
+        {\n
+        \t\t\tSubSystemA subSystemA = new SubSystemA();\n
+        \t\t\tSubSystemB subSystemB = new SubSystemB();\n
+        \t\t\tSubSystemC subSystemC = new SubSystemC();\n
+        \n
+        \t\t\tpublic void OperationAB()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tsubSystemA.OperationA();\n
+        \t\t\t\t\t\tsubSystemB.OperationB();\n
+        \t\t\t}\n
+        \n
+        \t\t\tpublic void OperationBC()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tsubSystemB.OperationB();\n
+        \t\t\t\t\t\tsubSystemC.OperationC();\n
+        \t\t\t}\n
+        }\n
+        \n
+        class SubSystemA\n
+        {\n
+        \t\t\tpublic void OperationA()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"subSystem A\" );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class SubSystemB\n
+        {\n
+        \t\t\tpublic void OperationB()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"subSystem B\" );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class SubSystemC\n
+        {\n
+        \t\t\tpublic void OperationC()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tConsole.WriteLine( \"subSystem C\" );\n
+        \t\t\t}\n
+        }\n
+    </string>
+
+    <string name="iterator_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн ИТЕРАТОР - предоставляет удобный и безопасный
+		способ доступа к элементам коллекции (составного объекта),
+		при этом не раскрывая внутреннего представления этой коллекции.
+	</string>
+    <string name="iterator_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>IEnumerator</b>]]> - интерфейс итератора, предоставляет набор методов для доступа к коллекции и обхода элементов.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Enumerator</b>]]> - конкретный итератор. Реализует интерфейс <![CDATA[<b>IEnumerator</b>]]>. Следит за позицией текущего элемента при переборе коллекции (<![CDATA[<b>IEnumerable</b>]]>).<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>IEnumerable</b>]]> - агрегат, предоставляет интерфейс коллекции (набор методов) в том числе методы для создания объекта-итератора.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>IEnumerable</b>]]> - конкретный агрегат, реализует интерфейс коллекции и хранит в себе элементы.<![CDATA[<br>]]>
+		<![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* <![CDATA[<b>Enumerator</b>]]> отслеживает текущий элемент в коллекции (<![CDATA[<b>IEnumerable</b>]]>) и может вычислить следующий за ним элемент.<![CDATA[<br>]]>
+	</string>
+    <string name="iterator_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tEnumerable enumerable = new Enumerable();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tenumerable[0] = "Element A";\n
+		\t\t\t\t\t\tenumerable[1] = "Element B";\n
+		\t\t\t\t\t\tenumerable[2] = "Element C";\n
+		\t\t\t\t\t\tenumerable[3] = "Element D";\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tforeach (var item in enumerable)\n
+		\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine(item);\n
+		\t\t\t\t\t\t}\n
+		\t\t\t}\n
+		}\n
+		\n
+		interface IEnumerable\n
+		{\n
+		\t\t\tIEnumerator GetEnumerator();\n
+		}\n
+		\n
+		class Enumerable : IEnumerable\n
+		{\n
+		\t\t\tprivate ArrayList items = new ArrayList();\n
+		\t\t\t\n
+		\t\t\tpublic object this[int index]\n
+		\t\t\t{\n
+		\t\t\t\t\t\tget { return items[index]; }\n
+		\t\t\t\t\t\tset { items.Insert(index, value); }\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic int Count\n
+		\t\t\t{\n
+		\t\t\t\t\t\tget { return items.Count; }\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\t// Реализация интерфейса IEnumerable.\n
+		\t\t\tpublic IEnumerator GetEnumerator()\n
+		\t\t\t{\n
+		\t\t\t\t\t\treturn new Enumerator(this);\n
+		\t\t\t}\n
+		}\n
+		\n
+		interface IEnumerator\n
+		{\n
+		\t\t\tbool MoveNext();\n
+		\t\t\tvoid Reset();\n
+		\t\t\tobject Current { get; }\n
+		}\n
+		\n
+		class Enumerator : IEnumerator\n
+		{\n
+		\t\t\tprivate Enumerable enumerable;\n
+		\t\t\tprivate int current = -1;\n
+		\t\t\t\n
+		\t\t\tpublic Enumerator(Enumerable enumerable)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.enumerable = enumerable;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\t// Реализация интерфейса IEnumerator.\n
+		\t\t\tpublic bool MoveNext()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif(current &lt; enumerable.Count - 1)\n
+		\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\tcurrent++;\n
+		\t\t\t\t\t\t\t\t\treturn true;\n
+		\t\t\t\t\t\t}\n
+		\t\t\t\t\t\treturn false;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Reset()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tcurrent = -1;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic object Current\n
+		\t\t\t{\n
+		\t\t\t\t\t\tget { return enumerable[current]; }\n
+		\t\t\t}\n
+		}\n
+	</string>
+
+    <string name="command_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн КОМАНДА инкапсулирует запрос в виде объекта,
+		делая возможной параметризацию клиентских объектов с другими
+		запросами, организацию очереди или регистрацию запросов,
+		а также поддержку отмены операций.
+	</string>
+    <string name="command_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Command</b>]]> - команда, предоставляет интерфейс для выполнения операции.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>ConcreteCommand</b>]]> - конкретная команда. Представляет собой объектно-ориентированное
+		выражение соответствия между объектом класса <![CDATA[<b>Receiver</b>]]> и выполняемым им действием Action. Реализует операцию Execute которая вызывает соответствующие операции объекта класса <![CDATA[<b>Receiver</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент,создает объект класса <![CDATA[<b>ConcreteCommand</b>]]> и устанавливает его получателя - объект класса <![CDATA[<b>Receiver</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Invoker</b>]]> - инициатор, обращается к объекту-команде для выполнения запроса.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Receiver</b>]]> - получатель, обладает функциональностью достаточной для выполнения.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент создает объект <![CDATA[<b>ConcreteCommand</b>]]> и устанавливает для него получателя.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Инициатор <![CDATA[<b>Invoker</b>]]> сохраняет объект <![CDATA[<b>ConcreteCommand</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Инициатор отправляет запрос, вызывая операуию команды Execute. Если
+		поддерживается отмена выполненных действий, то <![CDATA[<b>ConcreteCommand</b>]]> перед вызовом
+		Execute сохраняет информацию о состоянии, достаточную для выполнения отката.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объект <![CDATA[<b>ConcreteCommand</b>]]> вызывает операции получателя для выполнения запроса.<![CDATA[<br>]]>
+	</string>
+    <string name="command_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tReceiver receiver = new Receiver();\n
+		\t\t\t\t\t\tCommand command = new ConcreteCommand(receiver);\n
+		\t\t\t\t\t\tInvoker invoker = new Invoker();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tinvoker.StoreCommand(command);\n
+		\t\t\t\t\t\tinvoker.ExecuteCommand();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Receiver\n
+		{\n
+		\t\t\tpublic void Action()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("Receiver");\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteCommand : Command\n
+		{\n
+		\t\t\tpublic ConcreteCommand(Receiver receiver)\n
+		\t\t\t: base(receiver){}\n
+		\t\t\t\n
+		\t\t\tpublic override void Execute()\n
+		\t\t\t{\n
+		\t\t\t\t\t\treceiver.Action();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Command\n
+		{\n
+		\t\t\tprotected Receiver receiver;\n
+		\t\t\t\n
+		\t\t\tpublic Command(Receiver receiver)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.receiver = receiver;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic abstract void Execute();\n
+		}\n
+		\n
+		class Invoker\n
+		{\n
+		\t\t\tCommand command;\n
+		\t\t\t\n
+		\t\t\tpublic void StoreCommand(Command command)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.command = command;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void ExecuteCommand()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tcommand.Execute();\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+		//"Жизненный" пример=)\n
+		//Есть пульт ДУ с тремя кнопками.\n
+		//Нужно запрограммировать кнопки на включение, выключение света и отмену последней операции\n
+		\n
+		class Program\n
+		{\n
+		\t\t\tpublic static Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tRemoteControl remote = new RemoteControl();\n
+		\t\t\t\t\t\tLight light = new Light();\n
+		\t\t\t\t\t\tLightOnCommad lightOn = new LightOnCommad( light );\n
+		\t\t\t\t\t\tLightOffCommad lightOff = new LightOffCommad( light );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tremote.SetCommand( lightOn, lightOff );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\t//Проверяем и мигаем лампочкой\n
+		\t\t\t\t\t\tremote.OnButtonPushed();\n
+		\t\t\t\t\t\tremote.OffButtonPushed();\n
+		\t\t\t}\n
+		}\n
+		\n
+		//Команда\n
+		interface Command\n
+		{\n
+		\t\t\tvoid Execute();\n
+		\t\t\tvoid Undo();\n
+		}\n
+		\n
+		//Получатель запроса\n
+		class Light\n
+		{\n
+		\t\t\tpublic void On()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( "light on" );\n
+		\t\t\t}\n
+		\t\t\t\t\t\t\t\t\t\n
+		\t\t\tpublic void Off()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( "light off" );\n
+		\t\t\t}\n
+		}\n
+		\t\t\t\n
+		//Конкретная команда\n
+		class LightOnCommad : Command\n
+		{\n
+		\t\t\tLight light;\n
+		\t\t\t\n
+		\t\t\tpublic LightOnCommad( Light light )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.light = light;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Execute()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tlight.On();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Undo()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tlight.Off();\n
+		\t\t\t}\n
+		}\n
+		\n
+		//Конкретная команда\n
+		class LightOffCommad : Command\n
+		{\n
+		\t\t\tLight light;\n
+		\t\t\t\n
+		\t\t\tpublic LightOffCommad( Light light )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.light = light;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Execute()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tlight.off();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Undo()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tlight.On();\n
+		\t\t\t}\n
+		}\n
+		\n
+		//Инициатор\n
+		class RemoteControl\n
+		{\n
+		\t\t\tCommand onCommand;\n
+		\t\t\tCommand offCommand;\n
+		\t\t\tCommand undoCommand;\n
+		\t\t\t\n
+		\t\t\tpublic void SetCommand( Command onCommand, Command offCommand )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.onCommand = onCommand;\n
+		\t\t\t\t\t\tthis.offCommand = offCommand;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void OnButtonPushed()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tonCommand.Execute();\n
+		\t\t\t\t\t\tundoCommand = onCommand;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void OffButtonPushed()\n
+		\t\t\t{\n
+		\t\t\t\t\t\toffCommand.Execute();\n
+		\t\t\t\t\t\tundoCommand = offCommand;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void UndoButtonPushed()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tundoCommand.Undo();\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\t\t\t\n
+		\n
+	</string>
+
+    <string name="state_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн STATE – позволяет объекту изменять свое поведение в
+		зависимости от своего состояния. Поведение объекта изменяется
+		на столько, что создается впечатление, что изменился класс объекта.
+		В отличие от процедурных конечных автоматов, состояние в этом паттерне
+		представляется полноценным классом. Все зависящие от состояния
+		запросы делегируются объекту состояния.
+	</string>
+    <string name="state_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Context</b>]]> - контекст, представляет собой объектно-ориентированное
+		представление конечного автомата. Предоставляет интерфейс взаимодействия,
+		посредством которого клиенты могут оказывать влияние на конечный автомат,
+		например, посредством передачи входных сигналов. Объект класса <![CDATA[<b>Context</b>]]>
+		содержит ссылку на экземпляр текущего состояния.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>State</b>]]> - состояние, задает интерфейс взаимодействия с «объектом-состоянием».<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>State</b>]]> - конкретное состояние, реализует поведение (функции
+		выхода и функции перехода) ассоциированное с определенным состоянием. <![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объект класса <![CDATA[<b>Context</b>]]> передает клиентские запросы объекту класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>State</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объект класса <![CDATA[<b>Context</b>]]> может передать себя в качестве аргумента объекту типа
+		<![CDATA[<b>State</b>]]>, который будет обрабатывать запрос. Такой подход позволит объекту-состоянию получить доступ к контексту и произвести замену состояния.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объект класса <![CDATA[<b>Context</b>]]> обладает интерфейсом для конфигурирования его
+		нужным состоянием. Один раз сконфигурировав контекст, клиенты должны отказаться
+		от дальнейшей конфигурации. Чаще всего объекты <![CDATA[<b>Concrete</b>]]><![CDATA[<b>State</b>]]> сами принимают
+		решение о том, при каких условиях и в каком порядке происходит изменение состояния.<![CDATA[<br>]]>
+	</string>
+    <string name="state_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tContext context = new Context(new ConcreteStateA());\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tcontext.Request();\n
+		\t\t\t\t\t\tcontext.Request();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Context\n
+		{\n
+		\t\t\tpublic State State { get; set; }\n
+		\t\t\t\n
+		\t\t\tpublic Context(State state)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.State = state;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Request()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.State.Handle(this);\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class State\n
+		{\n
+		\t\t\tpublic abstract void Handle(Context context);\n
+		}\n
+		\n
+		class ConcreteStateA : State\n
+		{\n
+		\t\t\tpublic override void Handle(Context context)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tcontext.State = new ConcreteStateB();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteStateB : State\n
+		{\n
+		\t\t\tpublic override void Handle(Context context)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tcontext.State = new ConcreteStateA();\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+	</string>
+
+    <string name="template_method_definition">
+		<![CDATA[<b>Опредение:</b>]]><![CDATA[<br>]]>
+		Паттерн ШАБЛОННЫЙ МЕТОД - определяет "скелет" алгоритма
+		в методе, оставляя определение реализации некоторых шагов
+		субклассам. Субклассы могут переопределять некоторые части
+		алгоритма без изменения его структуры. ФАБРИЧНЫЙ МЕТОД
+		является специализированной версией ШАБЛОННОГО МЕТОДА.
+	</string>
+    <string name="template_method_diagram_description">
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>AbstractClass</b>]]> - абстрактный класс, содержит абстрактные методы PrimitiveOperation1, PrimitiveOperation2 … PrimitiveOperationN, реализуемые в конкретных производных классах. Каждая реализация отдельного абстрактного метода PrimitiveOperation1, PrimitiveOperation2 … PrimitiveOperationN, представляет собой один шаг общего алгоритма. Абстрактный класс <![CDATA[<b>AbstractClass</b>]]> содержит реализацию метода TemplateMethod в котором вызываются абстрактные методы PrimitiveOperation1, PrimitiveOperation2 … PrimitiveOperationN, (через использование техники абстрагирования вариантов использования) в определенной последовательности, тем самым формируя структуру (скелет) общего алгоритма из более мелких алгоритмов представленных методами PrimitiveOperation1, PrimitiveOperation2 … PrimitiveOperationN.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>ConcreteClass</b>]]> - конкретный класс, реализует абстрактные методы PrimitiveOperation1, PrimitiveOperation2 … PrimitiveOperationN, из базового класса <![CDATA[<b>AbstractClass</b>]]>. Реализации абстрактных методов PrimitiveOperation1, PrimitiveOperation2 … PrimitiveOperationN, представляют собой отдельные шаги общего алгоритма.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Конкретный класс <![CDATA[<b>ConcreteClass</b>]]> предполагает, что инвариантные (постоянные, не изменяющиеся в процессе эволюции системы) шаги алгоритма будут выполнены (через использование техники абстрагирования вариантов использования) в базовом классе <![CDATA[<b>AbstractClass</b>]]>.
+	</string>
+    <string name="template_method_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tAbstractClass instance = new ConcreteClass();\n
+		\t\t\t\t\t\tinstance.TemplateMethod();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class AbstractClass\n
+		{\n
+		\t\t\tpublic abstract void PrimitiveOperation1();\n
+		\t\t\tpublic abstract void PrimitiveOperation2();\n
+		\t\t\t\n
+		\t\t\tpublic void TemplateMethod()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tPrimitiveOperation1();\n
+		\t\t\t\t\t\tPrimitiveOperation2();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteClass : AbstractClass\n
+		{\n
+		\t\t\tpublic override void PrimitiveOperation1()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("PrimitiveOperation1");\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void PrimitiveOperation2()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("PrimitiveOperation2");\n
+		\t\t\t}\n
+		}\n
+	</string>
+</resources>
