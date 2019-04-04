@@ -17,23 +17,7 @@ import java.util.Map;
 public class PatternsActivity extends AppCompatActivity {
 
     ListView patternsListView = null;
-/*    final String[] patternsList = new String[]
-            {
-              "Стратегия",
-              "Наблюдатель",
-              "Декоратор",
-              "Абстрактная фабрика",
-              "Фабрика",
-              "Одиночка",
-              "Команда",
-              "Адаптер",
-              "Фасад",
-              "Шаблонный метод",
-              "Итератор",
-              "Компоновщик",
-              "Состояние",
-              "Заместитель"
-            };*/
+
     Map<String, String> patternRusEnNames = new HashMap<String, String>();
 
     @Override
@@ -57,6 +41,7 @@ public class PatternsActivity extends AppCompatActivity {
         patternRusEnNames.put("Компоновщик", "linker");
         patternRusEnNames.put("Состояние", "state");
         patternRusEnNames.put("Заместитель", "proxy");
+		patternRusEnNames.put("Мост", "bridge");
 
         String[] patternsList = new String[patternRusEnNames.size()];
         int index = 0;

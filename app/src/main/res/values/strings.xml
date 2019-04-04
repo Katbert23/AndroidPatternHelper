@@ -1391,4 +1391,246 @@
 		\t\t\t}\n
 		}\n
 	</string>
-</resources>
+	<string name="proxy_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн ЗАМЕСТИТЕЛЬ предоставляет суррогатный объект, 
+		управляющий доступом к другому объекту. На структурном 
+		уровне паттерн похож на паттерн ДЕКОРАТОР, но они различаются 
+		по своим целям. В то время, как ДЕКОРАТОР расширяет 
+		поведение объекта, ЗАМЕСТИТЕЛЬ управляет доступом. 
+	</string>
+	<string name="proxy_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Proxy</b>]]> - заместитель, представляет собой класс объекта-заместителя. Объект заместитель хранит в себе ссылку на реальный субъект, что позволяет заместителю обращаться к реальному субъекту напрямую. Заместитель имеет такой же интерфейс, как и реальный субъект, что позволяет в нужный момент подставлять заместителя вместо реального субъекта и наоборот. Заместитель контролирует доступ к реальному субъекту и может отвечать за создание экземпляра реального субъекта если это может оказаться необходимым. Прочие обязанности заместителя зависят от вида заместителя. Заместители бывают четырех видов: удаленный заместитель (отвечает за создание запроса и его отправление реальному субъекту), 
+		виртуальный заместитель (может кэшировать дополнительную информацию о реальном субъекте, чтобы отложить 
+		его создание), защищающий заместитель (проверяет, имеет ли вызывающий объект необходимые для выполнения запроса права) и заместитель – умная ссылка.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Subject</b>]]> - субъект, предоставляет общий интерфейс для <![CDATA[<b>Proxy</b>]]> и <![CDATA[<b>Real</b>]]><![CDATA[<b>Subject</b>]]>. <![CDATA[<b>Proxy</b>]]> возможно использовать везде где ожидается использование <![CDATA[<b>Real</b>]]><![CDATA[<b>Subject</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Real</b>]]><![CDATA[<b>Subject</b>]]> - реальный субъект, представляет собой класс объекта, для которого требуется создание 
+		заместителя.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объект-заместитель класса <![CDATA[<b>Proxy</b>]]>, переадресует клиентские запросы целевому объекту класса <![CDATA[<b>Real</b>]]><![CDATA[<b>Subject</b>]]>.
+	</string>
+	<string name="proxy_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tSubject subject = new Proxy();\n
+		\t\t\t\t\t\tsubject.Request();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Subject\n
+		{\n
+		\t\t\tpublic abstract void Request();\n
+		}\n
+		\n
+		class RealSubject : Subject\n
+		{\n
+		\t\t\tpublic override void Request()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("RealSubject");\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Proxy : Subject\n
+		{\n
+		\t\t\tRealSubject realSubject;\n
+		\t\t\tpublic override void Request()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif (realSubject == null)\n
+		\t\t\t\t\t\t\t\t\trealSubject = new RealSubject();\n
+		\t\t\t\t\t\trealSubject.Request();\n
+		\t\t\t}\n
+		}\n	
+	</string>
+	
+	<string name="bridge_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн МОСТ позволяет отделить абстракцию от ее реализации так, 
+		чтобы то и другое можно было изменять независимо. Смысл паттерна 
+		в том, чтобы инкапсулировать дополнительную функциональность в 
+		отдельном интерфейсе и добавлять ее через агрегацию
+	</string>
+	<string name="bridge_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Abstraction</b>]]>  - абстракция, предоставляет интерфейс для абстракции. 
+		Хранит ссылку на <![CDATA[<b>Implementor</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Refined</b>]]> <![CDATA[<b>Abstraction</b>]]>  - уточненная абстракция, 
+		расширяет интерфейс, предоставляемый абстракцией.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Implementor</b>]]>  - реализатор, предоставляет интерфейс для реализации. 
+		Чаще всего класс <![CDATA[<b>Implementor</b>]]>  предоставляет низкоуровневый интерфейс, а <![CDATA[<b>Abstraction</b>]]>  предоставляет высокоуровневый интерфейс.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]> <![CDATA[<b>Implementor</b>]]>  - конкретный реализатор, 
+		реализует интерфейс класса <![CDATA[<b>Implementor</b>]]> .<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объекты типа <![CDATA[<b>Abstraction</b>]]>  перенаправляют запросы клиента объектам типа <![CDATA[<b>Implementor</b>]]>.
+	</string>
+	<string name="bridge_code">
+		//Общий пример\n
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tAbstraction abstraction;\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tabstraction = new RefinedAbstraction(new ConcreteImplementorA());\n
+		\t\t\t\t\t\tabstraction.Operation();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tabstraction = new RefinedAbstraction(new ConcreteImplementorB());\n
+		\t\t\t\t\t\tabstraction.Operation();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Abstraction\n
+		{\n
+		\t\t\tprotected Implementor implementor;\n
+		\t\t\t\n
+		\t\t\tpublic Abstraction(Implementor imp)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.implementor = imp;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic virtual void Operation()\n
+		\t\t\t{\n
+		\t\t\t\t\t\timplementor.OperationImp();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class RefinedAbstraction : Abstraction\n
+		{\n
+		\t\t\tpublic RefinedAbstraction(Implementor imp) : base(imp){}\n
+		\t\t\t\n
+		\t\t\tpublic override void Operation()\n
+		\t\t\t{\n
+		\t\t\t// ...\n
+		\t\t\t\t\t\tbase.Operation();\n
+		\t\t\t// ...\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Implementor\n
+		{\n
+		\t\t\tpublic abstract void OperationImp();\n
+		}\n
+		\n
+		class ConcreteImplementorA : Implementor\n
+		{\n
+		\t\t\tpublic override void OperationImp()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("ImplementorA");\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteImplementorB : Implementor\n
+		{\n
+		\t\t\tpublic override void OperationImp()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("ImplementorB");\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+		//Более "живой" пример\n
+		class Program\n
+		{\n
+			static void Main(string[] args)\n
+		\t\t\t{\n
+		\t\t\t\t\t\t// создаем нового программиста на фрилансе, он работает с с++\n
+		\t\t\t\t\t\tProgrammer proger = new FreelanceProgrammer(new CPPLanguage());\n
+		\t\t\t\t\t\tproger.DoWork();\n
+		\t\t\t\t\t\tproger.EarnMoney();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\t// пришел новый заказ, но теперь нужен c#\n
+		\t\t\t\t\t\tproger.Language = new CSharpLanguage();\n
+		\t\t\t\t\t\tproger.DoWork();\n
+		\t\t\t\t\t\tproger.EarnMoney();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\t// поручим задачу офисному программисту\n
+		\t\t\t\t\t\tproger = new CorporateProgrammer( new CPPLanguage());\n
+		\t\t\t\t\t\tproger.DoWork();\n
+		\t\t\t\t\t\tproger.EarnMoney();\n
+			}\n
+		}\n
+		 \n
+		interface ILanguage\n
+		{\n
+		\t\t\tvoid Build();\n
+		\t\t\tvoid Execute();\n
+		}\n
+		 \n
+		class CPPLanguage : ILanguage\n
+		{\n
+		\t\t\tpublic void Build()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("С помощью компилятора C++ компилируем программу в бинарный код");\n
+		\t\t\t}\n
+		 \n
+		\t\t\tpublic void Execute()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("Запускаем исполняемый файл программы");\n
+		\t\t\t}\n
+		}\n
+		 \n
+		class CSharpLanguage : ILanguage\n
+		{\n
+		\t\t\tpublic void Build()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("С помощью компилятора Roslyn компилируем исходный код в файл exe");\n
+		\t\t\t}\n
+		 \n
+		\t\t\tpublic void Execute()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("JIT компилирует программу бинарный код");\n
+		\t\t\t\t\t\tConsole.WriteLine("CLR выполняет скомпилированный бинарный код");\n
+		\t\t\t}\n
+		}\n
+		 \n
+		abstract class Programmer\n
+		{\n
+		\t\t\tprotected ILanguage language;\n
+		\t\t\tpublic ILanguage Language\n
+		\t\t\t{\n
+		\t\t\t\t\t\tset { language = value; }\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic Programmer (ILanguage lang)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tlanguage = lang;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic virtual void DoWork()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tlanguage.Build();\n
+		\t\t\t\t\t\tlanguage.Execute();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic abstract void EarnMoney();\n
+		}\n
+		 \n
+		class FreelanceProgrammer : Programmer\n
+		{\n
+		\t\t\tpublic FreelanceProgrammer(ILanguage lang) : base(lang){}\n
+		\t\t\tpublic override void EarnMoney()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("Получаем оплату за выполненный заказ");\n
+		\t\t\t}\n
+		}\n
+		class CorporateProgrammer : Programmer\n
+		{\n
+		\t\t\tpublic CorporateProgrammer(ILanguage lang) : base(lang){}\n
+		\t\t\t\n
+		\t\t\tpublic override void EarnMoney()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine("Получаем в конце месяца зарплату");\n
+		\t\t\t}\n
+		}\n
+		\n					
+	</string>
+	
+	
+	
+	
+	
+	</resources>

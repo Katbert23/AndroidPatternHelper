@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
     ListView mainListView = null;
     final String[] mainMenu = new String[]{
        "SOLID",
-       "Паттерны"
+       "Паттерны",
+	   "Принципы ООП",
+	   "UML-обозначения"
     } ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
