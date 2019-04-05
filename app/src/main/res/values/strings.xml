@@ -1391,6 +1391,7 @@
 		\t\t\t}\n
 		}\n
 	</string>
+	
 	<string name="proxy_definition">
 		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
 		Паттерн ЗАМЕСТИТЕЛЬ предоставляет суррогатный объект, 
@@ -1629,8 +1630,183 @@
 		\n					
 	</string>
 	
+	<string name="builder_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн BUILDER – помогает организовать пошаговое построение сложного объекта-продукта так, что
+		клиенту не требуется понимать последовательность шагов и внутреннее устройство строящегося объекта-
+		продукта, при этом в результате одного и того же процесса конструирования могут получаться объекты-
+		продукты с различным представлением (внутренним устройством).
+	</string>
+	<string name="builder_diagram_description">
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Product</b>]]> - продукт, представляет собой класс сложно-конструируемого 
+		объекта-продукта и содержит в себе набор методов для сборки конечного 
+		результата-продукта из частей. Класс продукта может быть связан связями 
+		отношений агрегации, с классами которые описывают составные части создаваемого продукта.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Builder</b>]]> - абстрактный строитель, предоставляет набор абстрактных методов 
+		(интерфейс) для создания объекта-продукта из частей и получения готового результата.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]> - конкретный строитель, конструирует объект-продукт собирая 
+		его из частей, реализуя интерфейс, заданный абстрактным строителем (<![CDATA[<b>Builder</b>]]>). Предоставляет доступ к готовому продукту (возвращает продукт клиенту или в частном случае директору (<![CDATA[<b>Director</b>]]>)).<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Director</b>]]> – директор (Распорядитель), пользуясь интерфейсом строителя (<![CDATA[<b>Builder</b>]]>), 
+		директор дает строителю указание построить продукт.<![CDATA[<br>]]>
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент создает экземпляр класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент создает экземпляр класса <![CDATA[<b>Director</b>]]> при этом в качестве аргумента конструктора 
+		передает ссылку на ранее созданный экземпляр класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Директор (<![CDATA[<b>Director</b>]]>) вызывает на строителе (<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]>) методы, тем самым уведомляя 
+		строителя о том, что требуется построить определенную часть продукта.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Строитель выполняет операции по построению продукта, добавляя к продукту те 
+		части, которые указывает директор (<![CDATA[<b>Director</b>]]>).<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент получает от строителя ссылку на экземпляр построенного продукта.<![CDATA[<br>]]>
+	</string>
+	<string name="builder_code">
+		class Program\n
+		{\n
+		\t\t\tpublic static void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tBuilder builder = new ConcreteBuilder();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tDirector director = new Director(builder);\n
+		\t\t\t\t\t\tdirector.Construct();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tProduct product = builder.GetResult();\n
+		\t\t\t\t\t\tproduct.Show();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Director\n
+		{\n
+		\t\t\tBuilder builder;\n
+		\t\t\t\n
+		\t\t\tpublic Director(Builder builder)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.builder = builder;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Construct()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tbuilder.BuildPartA();\n
+		\t\t\t\t\t\tbuilder.BuildPartB();\n
+		\t\t\t\t\t\tbuilder.BuildPartC();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Builder\n
+		{\n
+		\t\t\tpublic abstract void BuildPartA();\n
+		\t\t\tpublic abstract void BuildPartB();\n
+		\t\t\tpublic abstract void BuildPartC();\n
+		\t\t\tpublic abstract Product GetResult();\n
+		}\n
+		\n
+		class ConcreteBuilder : Builder\n
+		{\n
+		\t\t\tProduct product = new Product();\n
+		\t\t\t\n
+		\t\t\tpublic override void BuildPartA()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tproduct.Add("Part A");\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void BuildPartB()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tproduct.Add("Part B");\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void BuildPartC()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tproduct.Add("Part C");\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override Product GetResult()\n
+		\t\t\t{\n
+		\t\t\t\t\t\treturn product;\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Product\n
+		{\n
+		\t\t\tArrayList parts = new ArrayList();\n
+		\t\t\t\n
+		\t\t\tpublic void Add(string part)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tparts.Add(part);\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Show()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tforeach (string part in parts)\n
+		\t\t\t\t\t\tConsole.WriteLine(part);\n
+		\t\t\t}\n
+		}\n
+	</string>
 	
-	
+	<string name="prototype_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн PROTOTYPE – предоставляет возможность создания новых объектов-продуктов (клонов), используя технику клонирования (копирования) созданного ранее объекта-оригинала-продукта (прототипа). Паттерн Prototype – позволяет задать различные виды (классы-виды) объектов-продуктов (клонов), через настройку состояния каждого нового созданного клона. Классификация клонов-продуктов производится на основании различия их состояний.
+	</string>
+	<string name="prototype_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Prototype</b>]]> - прототип, предоставляет интерфейс 
+		для клонирования себя.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Prototype</b>]]> - конкретный прототип, реализует 
+		операцию клонирования себя.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, создает экземпляр прототипа. Вызывает 
+		на прототипе метод клонирования.<![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент вызывает на экземпляре-прототипе метод Clone и этот метод создает 
+		экземпляр-клон прототипа и возвращает ссылку на него.
+	</string>
+	<string name="prototype_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tPrototype prototype = null;\t\t\t\t\t\t\n
+		\t\t\t\t\t\tPrototype clone = null;\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tprototype = new ConcretePrototype1(1);\n
+		\t\t\t\t\t\tclone = prototype.Clone();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tprototype = new ConcretePrototype2(2);\n
+		\t\t\t\t\t\tclone = prototype.Clone();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Prototype\n
+		{\n
+		\t\t\tpublic int Id { get; private set; }\n
+		\t\t\t\n
+		\t\t\tpublic Prototype(int id)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.Id = id;\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic abstract Prototype Clone();\n
+		}\n
+		\n
+		class ConcretePrototype1 : Prototype\n
+		{\n
+		\t\t\tpublic ConcretePrototype1(int id) : base(id){}\n
+		\t\t\t\n
+		\t\t\tpublic override Prototype Clone()\n
+		\t\t\t{\n
+		\t\t\t\t\t\treturn new ConcretePrototype1(Id);\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcretePrototype2 : Prototype\n
+		{\n
+		\t\t\tpublic ConcretePrototype2(int id) : base(id){}\n
+		\t\t\t\n
+		\t\t\tpublic override Prototype Clone()\n
+		\t\t\t{\n
+		\t\t\t\t\t\treturn new ConcretePrototype2(Id);\n
+		\t\t\t}\n
+		}\n
+	</string>
 	
 	
 	</resources>
