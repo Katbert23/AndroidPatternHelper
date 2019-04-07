@@ -25,7 +25,7 @@ public class CodeColor {
                     "protected ",
                     "abstract ",
                     "interface ",
-                    "this.",
+                    "this",
                     "void ",
                     "int ", "double ",
                     "string ",
@@ -36,7 +36,9 @@ public class CodeColor {
                     "foreach ",
                     "in ",
                     "static","as ",
-                    "null", "return", "volatile", "if ", "lock", "object", "base", "throw"
+                    "null", "return", "volatile", "if ", "lock",
+                    "object", "base", "throw", "var", "value",
+                    "false", "true", "bool"
 
             };
     //endregion
@@ -68,6 +70,7 @@ public class CodeColor {
                     "Abstraction", "RefinedAbstraction", "ConcreteImplementorA", "ConcreteImplementorB",
                     "Implementor", "Programmer", "CPPLanguage", "FreelanceProgrammer",
                     "CSharpLanguage", "CorporateProgrammer", "ILanguage",
+                    "Enumerable", "IEnumerable", "IEnumerator", "Enumerator"
             };
     //endregion
 

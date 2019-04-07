@@ -958,31 +958,31 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tEnumerable enumerable = new Enumerable();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tenumerable[0] = "Element A";\n
-		\t\t\t\t\t\tenumerable[1] = "Element B";\n
-		\t\t\t\t\t\tenumerable[2] = "Element C";\n
-		\t\t\t\t\t\tenumerable[3] = "Element D";\n
+		\t\t\t\t\t\tenumerable[ 0 ] = \"Element A\";\n
+		\t\t\t\t\t\tenumerable[ 1 ] = \"Element B\";\n
+		\t\t\t\t\t\tenumerable[ 2 ] = \"Element C\";\n
+		\t\t\t\t\t\tenumerable[ 3 ] = \"Element D\";\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tforeach (var item in enumerable)\n
 		\t\t\t\t\t\t{\n
-		\t\t\t\t\t\t\t\t\tConsole.WriteLine(item);\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine( item );\n
 		\t\t\t\t\t\t}\n
 		\t\t\t}\n
 		}\n
 		\n
 		interface IEnumerable\n
 		{\n
-		\t\t\tIEnumerator GetEnumerator();\n
+		\t\t\tIEnumerator GetEnumerаtor();\n
 		}\n
 		\n
 		class Enumerable : IEnumerable\n
 		{\n
 		\t\t\tprivate ArrayList items = new ArrayList();\n
 		\t\t\t\n
-		\t\t\tpublic object this[int index]\n
+		\t\t\tpublic object this[ int index ]\n
 		\t\t\t{\n
-		\t\t\t\t\t\tget { return items[index]; }\n
-		\t\t\t\t\t\tset { items.Insert(index, value); }\n
+		\t\t\t\t\t\tget { return items[ index ]; }\n
+		\t\t\t\t\t\tset { items.Insert( index, value ); }\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic int Count\n
@@ -990,10 +990,10 @@
 		\t\t\t\t\t\tget { return items.Count; }\n
 		\t\t\t}\n
 		\t\t\t\n
-		\t\t\t// Реализация интерфейса IEnumerable.\n
-		\t\t\tpublic IEnumerator GetEnumerator()\n
+		\t\t\t// Реализация интерфейса IEnumerаble.\n
+		\t\t\tpublic IEnumerator GetEnumerаtor()\n
 		\t\t\t{\n
-		\t\t\t\t\t\treturn new Enumerator(this);\n
+		\t\t\t\t\t\treturn new Enumerator( this );\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1009,15 +1009,15 @@
 		\t\t\tprivate Enumerable enumerable;\n
 		\t\t\tprivate int current = -1;\n
 		\t\t\t\n
-		\t\t\tpublic Enumerator(Enumerable enumerable)\n
+		\t\t\tpublic Enumerator( Enumerable enumerable )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.enumerable = enumerable;\n
 		\t\t\t}\n
 		\t\t\t\n
-		\t\t\t// Реализация интерфейса IEnumerator.\n
+		\t\t\t// Реализация интерфейса IEnumerаtor.\n
 		\t\t\tpublic bool MoveNext()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif(current &lt; enumerable.Count - 1)\n
+		\t\t\t\t\t\tif ( current &lt; enumerable.Count - 1 )\n
 		\t\t\t\t\t\t{\n
 		\t\t\t\t\t\t\t\t\tcurrent++;\n
 		\t\t\t\t\t\t\t\t\treturn true;\n
@@ -1032,7 +1032,7 @@
 		\t\t\t\n
 		\t\t\tpublic object Current\n
 		\t\t\t{\n
-		\t\t\t\t\t\tget { return enumerable[current]; }\n
+		\t\t\t\t\t\tget { return enumerable[ current ]; }\n
 		\t\t\t}\n
 		}\n
 	</string>
