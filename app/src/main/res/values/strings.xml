@@ -1626,9 +1626,9 @@
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]> - конкретный строитель, конструирует объект-продукт собирая 
 		его из частей, реализуя интерфейс, заданный абстрактным строителем (<![CDATA[<b>Builder</b>]]>). Предоставляет доступ к готовому продукту (возвращает продукт клиенту или в частном случае директору (<![CDATA[<b>Director</b>]]>)).<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Director</b>]]> – директор (Распорядитель), пользуясь интерфейсом строителя (<![CDATA[<b>Builder</b>]]>), 
-		директор дает строителю указание построить продукт.<![CDATA[<br>]]>
-		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
-		<![CDATA[<br>]]>
+		директор дает строителю указание построить продукт.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент создает экземпляр класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]>.<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент создает экземпляр класса <![CDATA[<b>Director</b>]]> при этом в качестве аргумента конструктора 
 		передает ссылку на ранее созданный экземпляр класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Builder</b>]]>.<![CDATA[<br>]]>
@@ -1645,7 +1645,7 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tBuilder builder = new ConcreteBuilder();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tDirector director = new Director(builder);\n
+		\t\t\t\t\t\tDirector director = new Director( builder );\n
 		\t\t\t\t\t\tdirector.Construct();\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tProduct product = builder.GetResult();\n
@@ -1657,7 +1657,7 @@
 		{\n
 		\t\t\tBuilder builder;\n
 		\t\t\t\n
-		\t\t\tpublic Director(Builder builder)\n
+		\t\t\tpublic Director( Builder builder )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.builder = builder;\n
 		\t\t\t}\n
@@ -1684,17 +1684,17 @@
 		\t\t\t\n
 		\t\t\tpublic override void BuildPartA()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tproduct.Add("Part A");\n
+		\t\t\t\t\t\tproduct.Add( \"Part A\" );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic override void BuildPartB()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tproduct.Add("Part B");\n
+		\t\t\t\t\t\tproduct.Add( \"Part B\" );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic override void BuildPartC()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tproduct.Add("Part C");\n
+		\t\t\t\t\t\tproduct.Add( \"Part C\" );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic override Product GetResult()\n
@@ -1707,15 +1707,15 @@
 		{\n
 		\t\t\tArrayList parts = new ArrayList();\n
 		\t\t\t\n
-		\t\t\tpublic void Add(string part)\n
+		\t\t\tpublic void Add( string part )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tparts.Add(part);\n
+		\t\t\t\t\t\tparts.Add( part );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void Show()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tforeach (string part in parts)\n
-		\t\t\t\t\t\tConsole.WriteLine(part);\n
+		\t\t\t\t\t\tforeach ( string part in parts )\n
+		\t\t\t\t\t\tConsole.WriteLine( part );\n
 		\t\t\t}\n
 		}\n
 	</string>

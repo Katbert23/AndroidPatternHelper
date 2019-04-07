@@ -61,7 +61,8 @@ public class CodeColor {
                     "Composite", "Leaf", "InvalidOperationException",
                     "AbstractClass", "ConcreteClass",
                     "Receiver", "Command", "ConcreteCommand", "Invoker", "RemoteControl", "Light",
-                    "LightOnCommand", "LightOffCommand", ""
+                    "LightOnCommand", "LightOffCommand",
+                    "Builder", "Director", "ConcreteBuilder", ""
             };
     //endregion
 
