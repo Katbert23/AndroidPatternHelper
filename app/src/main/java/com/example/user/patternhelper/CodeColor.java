@@ -70,7 +70,8 @@ public class CodeColor {
                     "Abstraction", "RefinedAbstraction", "ConcreteImplementorA", "ConcreteImplementorB",
                     "Implementor", "Programmer", "CPPLanguage", "FreelanceProgrammer",
                     "CSharpLanguage", "CorporateProgrammer", "ILanguage",
-                    "Enumerable", "IEnumerable", "IEnumerator", "Enumerator"
+                    "Enumerable", "IEnumerable", "IEnumerator", "Enumerator",
+                    "Prototype", "ConcretePrototype1", "ConcretePrototype2", 
             };
     //endregion
 

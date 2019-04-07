@@ -1731,7 +1731,7 @@
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Prototype</b>]]> - конкретный прототип, реализует 
 		операцию клонирования себя.<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, создает экземпляр прототипа. Вызывает 
-		на прототипе метод клонирования.<![CDATA[<br>]]>
+		на прототипе метод клонирования.<![CDATA[<br>]]><![CDATA[<br>]]>
 
 		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент вызывает на экземпляре-прототипе метод Clone и этот метод создает 
@@ -1745,10 +1745,10 @@
 		\t\t\t\t\t\tPrototype prototype = null;\t\t\t\t\t\t\n
 		\t\t\t\t\t\tPrototype clone = null;\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tprototype = new ConcretePrototype1(1);\n
+		\t\t\t\t\t\tprototype = new ConcretePrototype1( 1 );\n
 		\t\t\t\t\t\tclone = prototype.Clone();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tprototype = new ConcretePrototype2(2);\n
+		\t\t\t\t\t\tprototype = new ConcretePrototype2( 2 );\n
 		\t\t\t\t\t\tclone = prototype.Clone();\n
 		\t\t\t}\n
 		}\n
@@ -1757,7 +1757,7 @@
 		{\n
 		\t\t\tpublic int Id { get; private set; }\n
 		\t\t\t\n
-		\t\t\tpublic Prototype(int id)\n
+		\t\t\tpublic Prototype( int id )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.Id = id;\n
 		\t\t\t}\n
@@ -1767,21 +1767,21 @@
 		\n
 		class ConcretePrototype1 : Prototype\n
 		{\n
-		\t\t\tpublic ConcretePrototype1(int id) : base(id){}\n
+		\t\t\tpublic ConcretePrototype1( int id ) : base( id ) {}\n
 		\t\t\t\n
 		\t\t\tpublic override Prototype Clone()\n
 		\t\t\t{\n
-		\t\t\t\t\t\treturn new ConcretePrototype1(Id);\n
+		\t\t\t\t\t\treturn new ConcretePrototype1( Id );\n
 		\t\t\t}\n
 		}\n
 		\n
 		class ConcretePrototype2 : Prototype\n
 		{\n
-		\t\t\tpublic ConcretePrototype2(int id) : base(id){}\n
+		\t\t\tpublic ConcretePrototype2( int id ) : base( id ) {}\n
 		\t\t\t\n
 		\t\t\tpublic override Prototype Clone()\n
 		\t\t\t{\n
-		\t\t\t\t\t\treturn new ConcretePrototype2(Id);\n
+		\t\t\t\t\t\treturn new ConcretePrototype2( Id );\n
 		\t\t\t}\n
 		}\n
 	</string>
