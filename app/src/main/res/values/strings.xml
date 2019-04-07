@@ -439,11 +439,12 @@
     </string>
     <string name="singleton_diagram_description">
         <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
-        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Класс Singleton не имеет обязательных связей отношений.<![CDATA[<br>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Класс <![CDATA[<b>Singleton</b>]]> не имеет обязательных связей
+        отношений.<![CDATA[<br>]]><![CDATA[<br>]]>
 
         <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
         <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент получает доступ к экземпляру через вызов метода
-        Instance на классе-объекте Singleton.<![CDATA[<br>]]>
+        Instance на классе-объекте <![CDATA[<b>Singleton</b>]]>.<![CDATA[<br>]]>
     </string>
     <string name="singleton_code">
         class Program\n
@@ -464,7 +465,7 @@
         \t\t\t\n
         \t\t\tpublic static Singleton GetInstance\n
         \t\t\t{\n
-        \t\t\t\t\t\tget{\n
+        \t\t\t\t\t\tget {\n
         \t\t\t\t\t\t\t\t\tif ( uniqueGetInstance == null )\n
         \t\t\t\t\t\t\t\t\t{\n
         \t\t\t\t\t\t\t\t\t\t\t\tlock( syncRoot )\n

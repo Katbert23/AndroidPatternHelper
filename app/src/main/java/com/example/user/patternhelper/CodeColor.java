@@ -72,7 +72,7 @@ public class CodeColor {
                     "CSharpLanguage", "CorporateProgrammer", "ILanguage",
                     "Enumerable", "IEnumerable", "IEnumerator", "Enumerator",
                     "Prototype", "ConcretePrototype1", "ConcretePrototype2",
-                    "Targеt", 
+                    "Targеt",
             };
     //endregion
 
