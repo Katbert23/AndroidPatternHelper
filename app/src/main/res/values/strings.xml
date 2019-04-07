@@ -288,8 +288,8 @@
         \t\t\tpublic Client( AbstractFactory factory )\n
         \t\t\t{\n
         \t\t\t//Абстрагирование процессов инстанцирования\n
-        \t\t\t\t\t\tproductA = factory.CreateProductA();\n
-        \t\t\t\t\t\tproductB = factory.CreateProductB();\n
+        \t\t\t\t\t\tproductA = factory.CreatePrоductA();\n
+        \t\t\t\t\t\tproductB = factory.CreatePrоductB();\n
         \t\t\t}\n
         \t\t\tpublic void Run()\n
         \t\t\t{\n
@@ -300,17 +300,17 @@
         \n
         abstract class AbstractFactory\n
         {\n
-        \t\t\tpublic abstract AbstractProductA CreateProductA();\n
-        \t\t\tpublic abstract AbstractProductB CreateProductB();\n
+        \t\t\tpublic abstract AbstractProductA CreatePrоductA();\n
+        \t\t\tpublic abstract AbstractProductB CreatePrоductB();\n
         }\n
         \n
         class ConcreteFactory1 : AbstractFactory\n
         {\n
-        \t\t\tpublic override AbstractProductA CreateProductA()\n
+        \t\t\tpublic override AbstractProductA CreatePrоductA()\n
         \t\t\t{\n
         \t\t\t\t\t\treturn new ProductA1();\n
         \t\t\t}\n
-        \t\t\tpublic override AbstractProductB CreateProductB()\n
+        \t\t\tpublic override AbstractProductB CreatePrоductB()\n
         \t\t\t{\n
         \t\t\t\t\t\treturn new ProductB1();\n
         \t\t\t}\n
@@ -318,11 +318,11 @@
         \n
         class ConcreteFactory2 : AbstractFactory\n
         {\n
-        \t\t\tpublic override AbstractProductA CreateProductA()\n
+        \t\t\tpublic override AbstractProductA CreatePrоductA()\n
         \t\t\t{\n
         \t\t\t\t\t\treturn new ProductA2();\n
         \t\t\t}\n
-        \t\t\tpublic override AbstractProductB CreateProductB()\n
+        \t\t\tpublic override AbstractProductB CreatePrоductB()\n
         \t\t\t{\n
         \t\t\t\t\t\treturn new ProductB2();\n
         \t\t\t}\n
@@ -349,11 +349,11 @@
         \t\t\t}\n
         }\n
         \n
-        abstract class AbstractProductB{}\n
+        abstract class AbstractProductB {}\n
         \n
-        class ProductB1 : AbstractProductB{}\n
+        class ProductB1 : AbstractProductB {}\n
         \n
-        class ProductB2 : AbstractProductB{}\n
+        class ProductB2 : AbstractProductB {}\n
         \n
     </string>
 
