@@ -1454,10 +1454,10 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tAbstraction abstraction;\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tabstraction = new RefinedAbstraction(new ConcreteImplementorA());\n
+		\t\t\t\t\t\tabstraction = new RefinedAbstraction( new ConcreteImplementorA() );\n
 		\t\t\t\t\t\tabstraction.Operation();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tabstraction = new RefinedAbstraction(new ConcreteImplementorB());\n
+		\t\t\t\t\t\tabstraction = new RefinedAbstraction( new ConcreteImplementorB() );\n
 		\t\t\t\t\t\tabstraction.Operation();\n
 		\t\t\t}\n
 		}\n
@@ -1466,7 +1466,7 @@
 		{\n
 		\t\t\tprotected Implementor implementor;\n
 		\t\t\t\n
-		\t\t\tpublic Abstraction(Implementor imp)\n
+		\t\t\tpublic Abstraction( Implementor imp )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.implementor = imp;\n
 		\t\t\t}\n
@@ -1479,7 +1479,7 @@
 		\n
 		class RefinedAbstraction : Abstraction\n
 		{\n
-		\t\t\tpublic RefinedAbstraction(Implementor imp) : base(imp){}\n
+		\t\t\tpublic RefinedAbstraction( Implementor imp ) : base( imp ) {}\n
 		\t\t\t\n
 		\t\t\tpublic override void Operation()\n
 		\t\t\t{\n
@@ -1498,7 +1498,7 @@
 		{\n
 		\t\t\tpublic override void OperationImp()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("ImplementorA");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"ImplеmentorA\" );\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1506,7 +1506,7 @@
 		{\n
 		\t\t\tpublic override void OperationImp()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("ImplementorB");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"ImplеmentorB\" );\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1514,10 +1514,10 @@
 		//Более "живой" пример\n
 		class Program\n
 		{\n
-			static void Main(string[] args)\n
+			static void Main( string[] args )\n
 		\t\t\t{\n
 		\t\t\t\t\t\t// создаем нового программиста на фрилансе, он работает с с++\n
-		\t\t\t\t\t\tProgrammer proger = new FreelanceProgrammer(new CPPLanguage());\n
+		\t\t\t\t\t\tProgrammer proger = new FreelanceProgrammer( new CPPLanguage() );\n
 		\t\t\t\t\t\tproger.DoWork();\n
 		\t\t\t\t\t\tproger.EarnMoney();\n
 		\t\t\t\t\t\t\n
@@ -1530,7 +1530,7 @@
 		\t\t\t\t\t\tproger = new CorporateProgrammer( new CPPLanguage());\n
 		\t\t\t\t\t\tproger.DoWork();\n
 		\t\t\t\t\t\tproger.EarnMoney();\n
-			}\n
+		\t\t\t}\n
 		}\n
 		 \n
 		interface ILanguage\n
@@ -1543,12 +1543,12 @@
 		{\n
 		\t\t\tpublic void Build()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("С помощью компилятора C++ компилируем программу в бинарный код");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"С помощью компилятора C++ компилируем программу в бинарный код\" );\n
 		\t\t\t}\n
 		 \n
 		\t\t\tpublic void Execute()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("Запускаем исполняемый файл программы");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"Запускаем исполняемый файл программы\" );\n
 		\t\t\t}\n
 		}\n
 		 \n
@@ -1556,13 +1556,13 @@
 		{\n
 		\t\t\tpublic void Build()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("С помощью компилятора Roslyn компилируем исходный код в файл exe");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"С помощью компилятора Roslyn компилируем исходный код в файл exe\" );\n
 		\t\t\t}\n
 		 \n
 		\t\t\tpublic void Execute()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("JIT компилирует программу бинарный код");\n
-		\t\t\t\t\t\tConsole.WriteLine("CLR выполняет скомпилированный бинарный код");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"JIT компилирует программу бинарный код\" );\n
+		\t\t\t\t\t\tConsole.WriteLine( \"CLR выполняет скомпилированный бинарный код\" );\n
 		\t\t\t}\n
 		}\n
 		 \n
@@ -1574,7 +1574,7 @@
 		\t\t\t\t\t\tset { language = value; }\n
 		\t\t\t}\n
 		\t\t\t\n
-		\t\t\tpublic Programmer (ILanguage lang)\n
+		\t\t\tpublic Programmer ( ILanguage lang )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tlanguage = lang;\n
 		\t\t\t}\n
@@ -1590,19 +1590,19 @@
 		 \n
 		class FreelanceProgrammer : Programmer\n
 		{\n
-		\t\t\tpublic FreelanceProgrammer(ILanguage lang) : base(lang){}\n
+		\t\t\tpublic FreelanceProgrammer( ILanguage lang ) : base( lang ) {}\n
 		\t\t\tpublic override void EarnMoney()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("Получаем оплату за выполненный заказ");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"Получаем оплату за выполненный заказ\" );\n
 		\t\t\t}\n
 		}\n
 		class CorporateProgrammer : Programmer\n
 		{\n
-		\t\t\tpublic CorporateProgrammer(ILanguage lang) : base(lang){}\n
+		\t\t\tpublic CorporateProgrammer( ILanguage lang ) : base( lang ) {}\n
 		\t\t\t\n
 		\t\t\tpublic override void EarnMoney()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("Получаем в конце месяца зарплату");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"Получаем в конце месяца зарплату\" );\n
 		\t\t\t}\n
 		}\n
 		\n					

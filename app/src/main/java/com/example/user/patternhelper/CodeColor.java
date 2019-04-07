@@ -65,6 +65,9 @@ public class CodeColor {
                     "Builder", "Director", "ConcreteBuilder",
                     "ConcreteStateA", "State", "ConcreteStateB",
                     "Subject", "RealSubject", "Proxy",
+                    "Abstraction", "RefinedAbstraction", "ConcreteImplementorA", "ConcreteImplementorB",
+                    "Implementor", "Programmer", "CPPLanguage", "FreelanceProgrammer",
+                    "CSharpLanguage", "CorporateProgrammer", "ILanguage",
             };
     //endregion
 
