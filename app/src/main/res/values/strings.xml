@@ -1380,12 +1380,12 @@
 		{\n
 		\t\t\tpublic override void PrimitiveOperation1()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("PrimitiveOperation1");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"PrimitiveOperation1\" );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic override void PrimitiveOperation2()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("PrimitiveOperation2");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"PrimitiveOperation2\" );\n
 		\t\t\t}\n
 		}\n
 	</string>
