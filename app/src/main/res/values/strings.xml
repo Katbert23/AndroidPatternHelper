@@ -124,10 +124,10 @@
         {\n
         \t\t\tstatic void Main()\n
         \t\t\t{\n
-        \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n
-        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
-        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
-        \t\t\t\t\t\tsubject.State = "new state";\n
+        \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
+        \t\t\t\t\t\tsubject.State = \"nеw state\";\n\n
         \t\t\t\t\t\tsubject.NotifyObserver();\n
         \t\t\t}\n
         }\n
@@ -158,7 +158,7 @@
         \t\t\t}\n
         \t\t\tpublic void NotifyObserver()\n
         \t\t\t{\n
-        \t\t\t\t\t\tforeach( IObserver observer in observers )\n
+        \t\t\t\t\t\tforeach ( IObserver observer in observers )\n
         \t\t\t\t\t\t\t\t\tobserver.Update();\n
         \t\t\t}\n
         \t\t\tpublic string State{ get; set; }\n
@@ -184,10 +184,10 @@
         {\n
         \t\t\tstatic void Main()\n
         \t\t\t{\n
-        \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n
-        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
-        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n
-        \t\t\t\t\t\tsubject.State = "new state";\n
+        \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
+        \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
+        \t\t\t\t\t\tsubject.State = \"nеw state\";\n
         \t\t\t\t\t\tsubject.NotifyObserver();\n
         \t\t\t}\n
         }\n
@@ -217,7 +217,7 @@
         \t\t\t}\n
         \t\t\tpublic void NotifyObserver()\n
         \t\t\t{\n
-        \t\t\t\t\t\tforeach( IObserver observer in observers )\n
+        \t\t\t\t\t\tforeach ( IObserver observer in observers )\n
         \t\t\t\t\t\t\t\t\tobserver.Update( State );\n
         \t\t\t}\n
         \t\t\tprivate string State{ get; set; }\n
