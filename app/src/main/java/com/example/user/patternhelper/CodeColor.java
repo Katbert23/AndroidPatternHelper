@@ -71,7 +71,8 @@ public class CodeColor {
                     "Implementor", "Programmer", "CPPLanguage", "FreelanceProgrammer",
                     "CSharpLanguage", "CorporateProgrammer", "ILanguage",
                     "Enumerable", "IEnumerable", "IEnumerator", "Enumerator",
-                    "Prototype", "ConcretePrototype1", "ConcretePrototype2", 
+                    "Prototype", "ConcretePrototype1", "ConcretePrototype2",
+                    "Targеt", 
             };
     //endregion
 

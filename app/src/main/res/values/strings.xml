@@ -488,14 +488,15 @@
     </string>
     <string name="adapter_diagram_description">
         <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
-        <![CDATA[&#160;&#160;&#160;&#160;]]>		Target - целевой интерфейс, определяет требуемый клиенту интерфейс.
-        <![CDATA[&#160;&#160;&#160;&#160;]]>		Client - клиент, пользуется объектами с интерфейсом Target.
-        <![CDATA[&#160;&#160;&#160;&#160;]]>		Adaptee - адаптируемый класс, содержит набор методов, требующих адаптации.
-        <![CDATA[&#160;&#160;&#160;&#160;]]>		Adapter - Адаптер, преобразует интерфейс Adaptee к Target.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Target</b>]]> - целевой интерфейс, определяет требуемый клиенту интерфейс.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, пользуется объектами с интерфейсом <![CDATA[<b>Target</b>]]>.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Adaptee</b>]]> - адаптируемый класс, содержит набор методов, требующих адаптации.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Adapter</b>]]> - Адаптер, преобразует интерфейс <![CDATA[<b>Adaptee</b>]]> к <![CDATA[<b>Target</b>]]>.<![CDATA[<br>]]>
         <![CDATA[<br>]]>
 
         <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
-        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент вызывает методы на экземпляре класса Adapter. Adapter в свою очередь вызывает методы адаптируемого объекта или класса Adaptee.
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент вызывает методы на экземпляре класса <![CDATA[<b>Adapter</b>]]>.
+        <![CDATA[<b>Adapter</b>]]> в свою очередь вызывает методы адаптируемого объекта или класса <![CDATA[<b>Adaptee</b>]]>.
 
     </string>
     <string name="adapter_code">
@@ -504,8 +505,8 @@
         {\n
         \t\t\tstatic void Main()\n
         \t\t\t{\n
-        \t\t\t\t\t\tTarget target = new Adapter();\n
-        \t\t\t\t\t\ttarget.Request();\n
+        \t\t\t\t\t\tTargеt targеt = new Adapter();\n
+        \t\t\t\t\t\ttargеt.Request();\n
         \t\t\t}\n
         }\n
         \n
@@ -522,11 +523,11 @@
         \t\t\t}\n
         }\n
         \n
-        class Adapter : Adaptee, Target\n
+        class Adapter : Adaptee, Targеt\n
         {\n
         \t\t\tpublic void Request()\n
         \t\t\t{\n
-        \t\t\t\t\t\tSpecifecRequest();\n
+        \t\t\t\t\t\tSpecificRequest();\n
         \t\t\t}\n
         }\n
         \n
@@ -536,19 +537,19 @@
         {\n
         \t\t\tstatic void Main()\n
         \t\t\t{\n
-        \t\t\t\t\t\tTarget target = new Adapter();\n
-        \t\t\t\t\t\ttarget.Request();\n
+        \t\t\t\t\t\tTargеt targеt = new Adapter();\n
+        \t\t\t\t\t\ttargеt.Request();\n
         \t\t\t}\n
         }\n
         \n
-        abstract class Target\n
+        abstract class Targеt\n
         {\n
         \t\t\tpublic abstract void Request();\n
         }\n
         \n
 		class Adaptee\n
 		{\n
-		\t\t\tpublic void SpecifecRequest()\n
+		\t\t\tpublic void SpecificRequest()\n
 		\t\t\t{\n
 		\t\t\t\t\t\tConsole.WriteLine( \"SpecificRequest\" );\n
 		\t\t\t}\n
