@@ -31,17 +31,19 @@ public class PatternsActivity extends AppCompatActivity {
         patternRusEnNames.put("Наблюдатель", "observer");
         patternRusEnNames.put("Декоратор", "decorator");
         patternRusEnNames.put("Абстрактная фабрика", "abstract_factory");
-        patternRusEnNames.put("Фабрика", "factory");
         patternRusEnNames.put("Одиночка", "singleton");
         patternRusEnNames.put("Команда", "command");
         patternRusEnNames.put("Адаптер", "adapter");
         patternRusEnNames.put("Фасад", "facade");
         patternRusEnNames.put("Фабричный метод", "factory_method");
         patternRusEnNames.put("Итератор", "iterator");
-        patternRusEnNames.put("Компоновщик", "linker");
+        patternRusEnNames.put("Компоновщик", "composite");
         patternRusEnNames.put("Состояние", "state");
         patternRusEnNames.put("Заместитель", "proxy");
 		patternRusEnNames.put("Мост", "bridge");
+        patternRusEnNames.put("Шаблонный метод", "template_method");
+        patternRusEnNames.put("Строитель", "builder");
+        patternRusEnNames.put("Прототип", "prototype");
 
         String[] patternsList = new String[patternRusEnNames.size()];
         int index = 0;

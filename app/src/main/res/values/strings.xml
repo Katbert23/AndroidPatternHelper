@@ -755,13 +755,14 @@
     <string name="composite_diagram_description">
 		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Component</b>]]> - компонент, предоставляет интерфейс для объектов из которых составляется
-		дерево. В частном случае может предоставлять реализацию по умолчанию для некоторых методов.
+		дерево. В частном случае может предоставлять реализацию по умолчанию для некоторых методов.<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Leaf</b>]]> - лист, является классом листовых узлов дерева и не может иметь потомков, т.е.,
-		включать в себя объекты относящиеся к структуре дерева (из листа не может вырасти ветвь или другой лист).
+		включать в себя объекты относящиеся к структуре дерева (из листа не может вырасти ветвь или другой лист).<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Composite</b>]]> - составной объект, задает поведение объектов, входящих в структуру дерева,
-		у которых есть потомки, а также сам хранит в себе компоненты дерева (объекты потомки), как узловые, так и листовые. Реализует методы интерфейса <![CDATA[<b>Component</b>]]>, относящиеся к управлению потомками.
+		у которых есть потомки, а также сам хранит в себе компоненты дерева (объекты потомки), как узловые, так и листовые. Реализует методы интерфейса
+        <![CDATA[<b>Component</b>]]>, относящиеся к управлению потомками.<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, манипулирует объектами, входящими в структуру дерева, через
-		интерфейс, предоставляемый классом <![CDATA[<b>Component</b>]]>.
+		интерфейс, предоставляемый классом <![CDATA[<b>Component</b>]]>.<![CDATA[<br>]]><![CDATA[<br>]]>
 
 		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиенты (<![CDATA[<b>Client</b>]]>) взаимодействуют с элементами, входящими в состав дерева, через
@@ -776,11 +777,11 @@
 		{\n
 		\t\t\tstatic void Main()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tComponent root = new Composite( "ROOT" );\n
-		\t\t\t\t\t\tComponent branch1 = new Composite( "BR1" );\n
-		\t\t\t\t\t\tComponent branch2 = new Composite( "BR2" );\n
-		\t\t\t\t\t\tComponent leaf1 = new Leaf( "L1" );\n
-		\t\t\t\t\t\tComponent leaf2 = new Leaf( "L2" );\n
+		\t\t\t\t\t\tComponent root = new Composite( \"ROOT\" );\n
+		\t\t\t\t\t\tComponent branch1 = new Composite( \"BR1\" );\n
+		\t\t\t\t\t\tComponent branch2 = new Composite( \"BR2\" );\n
+		\t\t\t\t\t\tComponent leaf1 = new Leaf( \"L1\" );\n
+		\t\t\t\t\t\tComponent leaf2 = new Leaf( \"L2\" );\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\troot.Add( branch1 );\n
 		\t\t\t\t\t\troot.Add( branch2 );\n
@@ -807,7 +808,7 @@
 		\n
 		class Leaf : Component\n
 		{\n
-		\t\t\tpublic Leaf( string name ) : base( name ){}\n
+		\t\t\tpublic Leaf( string name ) : base( name ) {}\n
 		\t\t\t\n
 		\t\t\tpublic override void Operation()\n
 		\t\t\t{\n
@@ -859,9 +860,6 @@
 		\t\t\t\t\t\treturn nodes[ index ] as Component;\n
 		\t\t\t}\n
 		}\n
-		\n
-		\n
-		\n
 	</string>
 
     <string name="facade_definition">

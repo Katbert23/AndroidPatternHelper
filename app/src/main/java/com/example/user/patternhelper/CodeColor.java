@@ -35,8 +35,8 @@ public class CodeColor {
                     "set ", "set;",
                     "foreach ",
                     "in ",
-                    "static",
-                    "null", "return", "volatile", "if ", "lock", "object", "base."
+                    "static","as ",
+                    "null", "return", "volatile", "if ", "lock", "object", "base", "throw"
 
             };
     //endregion
@@ -57,7 +57,8 @@ public class CodeColor {
                     "Facade", "SubSystemA", "SubSystemB", "SubSystemC",
                     "Adaptee", "Adapter", "Target",
                     "Component", "Decorator", "ConcreteDecorator", "ConcreteDecoratorA", "ConcreteDecoratorB",
-                    "Beverage", "Mocha", "Whip", "Espresso", "CondimentDecorator", "ConcreteComponent"
+                    "Beverage", "Mocha", "Whip", "Espresso", "CondimentDecorator", "ConcreteComponent",
+                    "Composite", "Leaf", "InvalidOperationException"
             };
     //endregion
 
