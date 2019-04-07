@@ -1409,18 +1409,18 @@
 		{\n
 		\t\t\tpublic override void Request()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("RealSubject");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"ReаlSubjеct\" );\n
 		\t\t\t}\n
 		}\n
 		\n
 		class Proxy : Subject\n
 		{\n
-		\t\t\tRealSubject realSubject;\n
+		\t\t\tRealSubject realSubjеct;\n
 		\t\t\tpublic override void Request()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif (realSubject == null)\n
-		\t\t\t\t\t\t\t\t\trealSubject = new RealSubject();\n
-		\t\t\t\t\t\trealSubject.Request();\n
+		\t\t\t\t\t\tif ( realSubjеct == null )\n
+		\t\t\t\t\t\t\t\t\trealSubjеct = new RealSubject();\n
+		\t\t\t\t\t\trealSubjеct.Request();\n
 		\t\t\t}\n
 		}\n	
 	</string>

@@ -63,7 +63,8 @@ public class CodeColor {
                     "Receiver", "Command", "ConcreteCommand", "Invoker", "RemoteControl", "Light",
                     "LightOnCommand", "LightOffCommand",
                     "Builder", "Director", "ConcreteBuilder",
-                    "ConcreteStateA", "State", "ConcreteStateB"
+                    "ConcreteStateA", "State", "ConcreteStateB",
+                    "Subject", "RealSubject", "Proxy",
             };
     //endregion
 
