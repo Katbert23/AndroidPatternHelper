@@ -1067,11 +1067,11 @@
 		\t\t\tstatic void Main()\n
 		\t\t\t{\n
 		\t\t\t\t\t\tReceiver receiver = new Receiver();\n
-		\t\t\t\t\t\tCommand command = new ConcreteCommand(receiver);\n
+		\t\t\t\t\t\tCommand command = new ConcreteCommand( receiver );\n
 		\t\t\t\t\t\tInvoker invoker = new Invoker();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tinvoker.StoreCommand(command);\n
-		\t\t\t\t\t\tinvoker.ExecuteCommand();\n
+		\t\t\t\t\t\tinvoker.StoreCоmmand( command );\n
+		\t\t\t\t\t\tinvoker.ExecuteCоmmand();\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1079,14 +1079,14 @@
 		{\n
 		\t\t\tpublic void Action()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine("Receiver");\n
+		\t\t\t\t\t\tConsole.WriteLine( \"Recеiver\" );\n
 		\t\t\t}\n
 		}\n
 		\n
 		class ConcreteCommand : Command\n
 		{\n
-		\t\t\tpublic ConcreteCommand(Receiver receiver)\n
-		\t\t\t: base(receiver){}\n
+		\t\t\tpublic ConcreteCommand( Receiver receiver )\n
+		\t\t\t: base( receiver ){}\n
 		\t\t\t\n
 		\t\t\tpublic override void Execute()\n
 		\t\t\t{\n
@@ -1098,7 +1098,7 @@
 		{\n
 		\t\t\tprotected Receiver receiver;\n
 		\t\t\t\n
-		\t\t\tpublic Command(Receiver receiver)\n
+		\t\t\tpublic Command( Receiver receiver )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.receiver = receiver;\n
 		\t\t\t}\n
@@ -1110,12 +1110,12 @@
 		{\n
 		\t\t\tCommand command;\n
 		\t\t\t\n
-		\t\t\tpublic void StoreCommand(Command command)\n
+		\t\t\tpublic void StoreCommand( Command command )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.command = command;\n
 		\t\t\t}\n
 		\t\t\t\n
-		\t\t\tpublic void ExecuteCommand()\n
+		\t\t\tpublic void ExecuteCоmmand()\n
 		\t\t\t{\n
 		\t\t\t\t\t\tcommand.Execute();\n
 		\t\t\t}\n
@@ -1132,10 +1132,10 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tRemoteControl remote = new RemoteControl();\n
 		\t\t\t\t\t\tLight light = new Light();\n
-		\t\t\t\t\t\tLightOnCommad lightOn = new LightOnCommad( light );\n
-		\t\t\t\t\t\tLightOffCommad lightOff = new LightOffCommad( light );\n
+		\t\t\t\t\t\tLightOnCommand lightOn = new LightOnCommand( light );\n
+		\t\t\t\t\t\tLightOffCommand lightOff = new LightOffCommand( light );\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tremote.SetCommand( lightOn, lightOff );\n
+		\t\t\t\t\t\tremote.SetCоmmand( lightOn, lightOff );\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\t//Проверяем и мигаем лампочкой\n
 		\t\t\t\t\t\tremote.OnButtonPushed();\n
@@ -1155,21 +1155,21 @@
 		{\n
 		\t\t\tpublic void On()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine( "light on" );\n
+		\t\t\t\t\t\tConsole.WriteLine( \"light on\" );\n
 		\t\t\t}\n
 		\t\t\t\t\t\t\t\t\t\n
 		\t\t\tpublic void Off()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tConsole.WriteLine( "light off" );\n
+		\t\t\t\t\t\tConsole.WriteLine( \"light off\" );\n
 		\t\t\t}\n
 		}\n
 		\t\t\t\n
 		//Конкретная команда\n
-		class LightOnCommad : Command\n
+		class LightOnCommand : Command\n
 		{\n
 		\t\t\tLight light;\n
 		\t\t\t\n
-		\t\t\tpublic LightOnCommad( Light light )\n
+		\t\t\tpublic LightOnCommand( Light light )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.light = light;\n
 		\t\t\t}\n
@@ -1186,11 +1186,11 @@
 		}\n
 		\n
 		//Конкретная команда\n
-		class LightOffCommad : Command\n
+		class LightOffCommand : Command\n
 		{\n
 		\t\t\tLight light;\n
 		\t\t\t\n
-		\t\t\tpublic LightOffCommad( Light light )\n
+		\t\t\tpublic LightOffCommand( Light light )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.light = light;\n
 		\t\t\t}\n
@@ -1209,53 +1209,33 @@
 		//Инициатор\n
 		class RemoteControl\n
 		{\n
-		\t\t\tCommand onCommand;\n
-		\t\t\tCommand offCommand;\n
-		\t\t\tCommand undoCommand;\n
+		\t\t\tCommand onCоmmand;\n
+		\t\t\tCommand offCоmmand;\n
+		\t\t\tCommand undoCоmmand;\n
 		\t\t\t\n
-		\t\t\tpublic void SetCommand( Command onCommand, Command offCommand )\n
+		\t\t\tpublic void SetCоmmand( Command onCоmmand, Command offCоmmand )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tthis.onCommand = onCommand;\n
-		\t\t\t\t\t\tthis.offCommand = offCommand;\n
+		\t\t\t\t\t\tthis.onCоmmand = onCоmmand;\n
+		\t\t\t\t\t\tthis.offCоmmand = offCоmmand;\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void OnButtonPushed()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tonCommand.Execute();\n
-		\t\t\t\t\t\tundoCommand = onCommand;\n
+		\t\t\t\t\t\tonCоmmand.Execute();\n
+		\t\t\t\t\t\tundoCоmmand = onCоmmand;\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void OffButtonPushed()\n
 		\t\t\t{\n
-		\t\t\t\t\t\toffCommand.Execute();\n
-		\t\t\t\t\t\tundoCommand = offCommand;\n
+		\t\t\t\t\t\toffCоmmand.Execute();\n
+		\t\t\t\t\t\tundoCоmmand = offCоmmand;\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void UndoButtonPushed()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tundoCommand.Undo();\n
+		\t\t\t\t\t\tundoCоmmand.Undo();\n
 		\t\t\t}\n
 		}\n
-		\n
-		\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\t\t\t\n
-		\n
 	</string>
 
     <string name="state_definition">

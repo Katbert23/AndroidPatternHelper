@@ -59,7 +59,9 @@ public class CodeColor {
                     "Component", "Decorator", "ConcreteDecorator", "ConcreteDecoratorA", "ConcreteDecoratorB",
                     "Beverage", "Mocha", "Whip", "Espresso", "CondimentDecorator", "ConcreteComponent",
                     "Composite", "Leaf", "InvalidOperationException",
-                    "AbstractClass", "ConcreteClass"
+                    "AbstractClass", "ConcreteClass",
+                    "Receiver", "Command", "ConcreteCommand", "Invoker", "RemoteControl", "Light",
+                    "LightOnCommand", "LightOffCommand", ""
             };
     //endregion
 
