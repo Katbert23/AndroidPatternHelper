@@ -62,7 +62,8 @@ public class CodeColor {
                     "AbstractClass", "ConcreteClass",
                     "Receiver", "Command", "ConcreteCommand", "Invoker", "RemoteControl", "Light",
                     "LightOnCommand", "LightOffCommand",
-                    "Builder", "Director", "ConcreteBuilder", ""
+                    "Builder", "Director", "ConcreteBuilder",
+                    "ConcreteStateA", "State", "ConcreteStateB"
             };
     //endregion
 

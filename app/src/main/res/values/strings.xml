@@ -1272,7 +1272,7 @@
 		{\n
 		\t\t\tstatic void Main()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tContext context = new Context(new ConcreteStateA());\n
+		\t\t\t\t\t\tContext context = new Context( new ConcreteStateA() );\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tcontext.Request();\n
 		\t\t\t\t\t\tcontext.Request();\n
@@ -1281,37 +1281,37 @@
 		\n
 		class Context\n
 		{\n
-		\t\t\tpublic State State { get; set; }\n
+		\t\t\tpublic State Stаte { get; set; }\n
 		\t\t\t\n
-		\t\t\tpublic Context(State state)\n
+		\t\t\tpublic Context( State state )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tthis.State = state;\n
+		\t\t\t\t\t\tthis.Stаte = state;\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void Request()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tthis.State.Handle(this);\n
+		\t\t\t\t\t\tthis.Stаte.Handle( this );\n
 		\t\t\t}\n
 		}\n
 		\n
 		abstract class State\n
 		{\n
-		\t\t\tpublic abstract void Handle(Context context);\n
+		\t\t\tpublic abstract void Handle( Context context );\n
 		}\n
 		\n
 		class ConcreteStateA : State\n
 		{\n
-		\t\t\tpublic override void Handle(Context context)\n
+		\t\t\tpublic override void Handle( Context context )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tcontext.State = new ConcreteStateB();\n
+		\t\t\t\t\t\tcontext.Stаte = new ConcreteStateB();\n
 		\t\t\t}\n
 		}\n
 		\n
 		class ConcreteStateB : State\n
 		{\n
-		\t\t\tpublic override void Handle(Context context)\n
+		\t\t\tpublic override void Handle( Context context )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tcontext.State = new ConcreteStateA();\n
+		\t\t\t\t\t\tcontext.Stаte = new ConcreteStateA();\n
 		\t\t\t}\n
 		}\n
 		\n
