@@ -1823,14 +1823,14 @@
 		\t\t\t\t\t\tFlyweight flyweight = null;\n
 		\t\t\t\t\t\tFlyweightFactory factory = new FlyweightFactory();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tflyweight = factory.GetFlyweight("1");\n
-		\t\t\t\t\t\tflyweight.Operation(extrinsicState);\n
+		\t\t\t\t\t\tflyweight = factory.GetFlyweight( \"1\" );\n
+		\t\t\t\t\t\tflyweight.Operation( extrinsicState );\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tflyweight = factory.GetFlyweight("10");\n
-		\t\t\t\t\t\tflyweight.Operation(extrinsicState);\n
+		\t\t\t\t\t\tflyweight = factory.GetFlyweight( \"10\" );\n
+		\t\t\t\t\t\tflyweight.Operation( extrinsicState );\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tflyweight = new UnsharedConcreteFlyweight();\n
-		\t\t\t\t\t\tflyweight.Operation(extrinsicState);\n
+		\t\t\t\t\t\tflyweight.Operation( extrinsicState );\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1838,30 +1838,30 @@
 		{\n
 		\t\t\tHashtable pool = new Hashtable\n
 		\t\t\t{\n
-		\t\t\t\t\t\t{"1", new ConcreteFlyweight()},\n
-		\t\t\t\t\t\t{"2", new ConcreteFlyweight()},\n
-		\t\t\t\t\t\t{"3", new ConcreteFlyweight()}\n
+		\t\t\t\t\t\t{ \"1\" , new ConcreteFlyweight()},\n
+		\t\t\t\t\t\t{ \"2\" , new ConcreteFlyweight()},\n
+		\t\t\t\t\t\t{ \"3\" , new ConcreteFlyweight()}\n
 		\t\t\t};\n
 		\t\t\t\n
-		\t\t\tpublic Flyweight GetFlyweight(string key)\n
+		\t\t\tpublic Flyweight GetFlyweight( string key )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif (!pool.ContainsKey(key))\n
-		\t\t\t\t\t\t\t\t\tpool.Add(key, new ConcreteFlyweight());\n
+		\t\t\t\t\t\tif ( !pool.ContainsKey( key ) )\n
+		\t\t\t\t\t\t\t\t\tpool.Add( key, new ConcreteFlyweight() );\n
 		\t\t\t\t\t\t\t\t\t\n
-		\t\t\t\t\t\treturn pool[key] as Flyweight;\n
+		\t\t\t\t\t\treturn pool[ key ] as Flyweight;\n
 		\t\t\t}\n
 		}\n
 		\n
 		abstract class Flyweight\n
 		{\n
-		\t\t\tpublic abstract void Operation(int extrinsicState);\n
+		\t\t\tpublic abstract void Operation( int extrinsicState );\n
 		}\n
 		\n
 		class ConcreteFlyweight : Flyweight\n
 		{\n
 		\t\t\tint intrinsicState;\n
 		\t\t\t\n
-		\t\t\tpublic override void Operation(int extrinsicState)\n
+		\t\t\tpublic override void Operation( int extrinsicState )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tintrinsicState = extrinsicState;\n
 		\t\t\t}\n
@@ -1871,7 +1871,7 @@
 		{\n
 		\t\t\tint allState;\n
 		\t\t\t\n
-		\t\t\tpublic override void Operation(int extrinsicState)\n
+		\t\t\tpublic override void Operation( int extrinsicState )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tallState = extrinsicState;\n
 		\t\t\t}\n
@@ -1909,40 +1909,128 @@
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\th1.Successor = h2;\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\th1.HandleRequest(1);\n
-		\t\t\t\t\t\th1.HandleRequest(2);\n
+		\t\t\t\t\t\th1.HandleRequest( 1 );\n
+		\t\t\t\t\t\th1.HandleRequest( 2 );\n
 		\t\t\t}\n
 		}\n
 		\n
 		abstract class Handler\n
 		{\n
 		\t\t\tpublic Handler Successor { get; set; }\n
-		\t\t\tpublic abstract void HandleRequest(int request);\n
+		\t\t\tpublic abstract void HandleRequest( int request );\n
 		}\n
 		\n
 		class ConcreteHandler1 : Handler\n
 		{\n
-		\t\t\tpublic override void HandleRequest(int request)\n
+		\t\t\tpublic override void HandleRequest( int request )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif (request == 1)\n
-		\t\t\t\t\t\t\t\t\tConsole.WriteLine("One");\n
-		\t\t\t\t\t\telse if (Successor != null)\n
-		\t\t\t\t\t\t\t\t\tSuccessor.HandleRequest(request);\n
+		\t\t\t\t\t\tif ( request == 1 )\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine( \"One\" );\n
+		\t\t\t\t\t\telse if ( Successor != null )\n
+		\t\t\t\t\t\t\t\t\tSuccessor.HandleRequest( request );\n
 		\t\t\t}\n
 		}\n
 		\n
 		class ConcreteHandler2 : Handler\n
 		{\n
-		\t\t\tpublic override void HandleRequest(int request)\n
+		\t\t\tpublic override void HandleRequest( int request )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif (request == 2)\n
-		\t\t\t\t\t\t\t\t\tConsole.WriteLine("Two");\n
-		\t\t\t\t\t\telse if (Successor != null)\n
-		\t\t\t\t\t\t\t\t\tSuccessor.HandleRequest(request);\n
+		\t\t\t\t\t\tif ( request == 2 )\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine( \"Two\" );\n
+		\t\t\t\t\t\telse if ( Successor != null )\n
+		\t\t\t\t\t\t\t\t\tSuccessor.HandleRequest( request );\n
 		\t\t\t}\n
 		}\n
 	</string>
 	
-	
+	<string name="interpretator_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн Interpreter – позволяет сформировать объектно-ориентированное представление грамматики для заданного языка, а также описывает правила создания механизма интерпретации (толкования) предложений этого языка.
+	</string>
+	<string name="interpretator_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>AbstractExpression</b>]]> - абстрактное выражение, предоставляет абстрактный 
+		метод <![CDATA[<b>Interpret</b>]]>, который будет реализован во всех узлах абстрактного синтаксического дерева.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>TerminalExpression</b>]]> - терминальное выражение, реализует абстрактный метод 
+		<![CDATA[<b>Interpret</b>]]> для анализа терминальных символов грамматики, которые входят в словарь V. Для каждого терминального символа в предложении (буквы или слова) требуется создавать отдельный класс <![CDATA[<b>TerminalExpression</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>NonTerminalExpression</b>]]> - нетерминальное выражение, представляет собой 
+		объектно-ориентированное представление правила R (Rule). Для каждого правила R = {R1, R2, … Rn} требуется создавать отдельный класс <![CDATA[<b>NonTerminalExpression</b>]]>. Реализует абстрактный метод <![CDATA[<b>Interpret</b>]]> для работы с правилами (нетерминальными символами грамматики).<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Context</b>]]> - контекст, содержит в себе цепочки определенного языка и другую 
+		вспомогательную информацию требуемую для работы интерпретатора.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, строит (или получает в готовом виде) абстрактное 
+		синтаксическое дерево, представляющее собой отдельное предложение на языке заданном определенной грамматикой. Дерево составляется из экземпляров классов <![CDATA[<b>TerminalExpression</b>]]> и <![CDATA[<b>NonTerminalExpression</b>]]>.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент строит (или получает в готовом виде) абстрактное синтаксическое 
+		дерево, представляющее собой отдельное предложение на языке заданном определенной грамматикой. Дерево составляется из экземпляров классов <![CDATA[<b>TerminalExpression</b>]]> и <![CDATA[<b>NonTerminalExpression</b>]]>.
+	</string>
+	<string name="interpretator_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tContext context = new Context\n
+		\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\tVocabulary = 'a',\n
+		\t\t\t\t\t\t\t\t\tSource = "aaa"\n
+		\t\t\t\t\t\t};\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tvar expression = new NonterminalExpression();\n
+		\t\t\t\t\t\texpression.Interpret( context );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tConsole.WriteLine( context.Result );\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Context\n
+		{\n
+		\t\t\t// Контекст распознающей грамматики языка:\n
+		\t\t\t// V = {a}; L = V*;\n
+		\t\t\t// Правильные цепочки: a, aa, aaa, ...\n
+		\t\t\t// Неправильные цепочки: b, ab, aba, ...\n
+		\t\t\t\n
+		\t\t\tpublic string Source { get; set; }\n
+		\t\t\tpublic char Vocabulary { get; set; }\n
+		\t\t\tpublic bool Result { get; set; }\n
+		\t\t\tpublic int Position { get; set; }\n
+		}\n
+		\n
+		abstract class AbstractExpression\n
+		{\n
+		\t\t\tpublic abstract void Interpret( Context context );\n
+		}\n
+		\n
+		class TerminalExpression : AbstractExpression\n
+		{\n
+		\t\t\tpublic override void Interpret( Context context )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tcontext.Result =\n
+		\t\t\t\t\t\tcontext.Source[ context.Position ] == context.Vocabulary;\n
+		\t\t\t}\n
+		}\n
+		\n
+		class NonterminalExpression : AbstractExpression\n
+		{\n
+		\t\t\tAbstractExpression nonterminalExpression;\n
+		\t\t\tAbstractExpression terminalExpression;\n
+		\t\t\t\n
+		\t\t\tpublic override void Interpret( Context context )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif ( context.Position &lt; context.Source.Length )\n
+		\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\tterminalExpression = new TerminalExpression();\n
+		\t\t\t\t\t\t\t\t\tterminalExpression.Interpret( context );\n
+		\t\t\t\t\t\t\t\t\tcontext.Position++;\n
+		\t\t\t\t\t\t\t\t\t\n
+		\t\t\t\t\t\t\t\t\tif ( context.Result )\n
+		\t\t\t\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\t\t\t\tnonterminalExpression = new NonterminalExpression();\n
+		\t\t\t\t\t\t\t\t\t\t\t\tnonterminalExpression.Interpret( context );\n
+		\t\t\t\t\t\t\t\t\t}\n
+		\t\t\t\t\t\t}\n
+		\t\t\t}\n
+		}\n
+		\n
+	</string>
 	
 	</resources>
