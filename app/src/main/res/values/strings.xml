@@ -1485,9 +1485,9 @@
 		\t\t\t\n
 		\t\t\tpublic override void Operation()\n
 		\t\t\t{\n
-		\t\t\t// ...\n
+		\t\t\t// ....\n
 		\t\t\t\t\t\tbase.Operation();\n
-		\t\t\t// ...\n
+		\t\t\t// ....\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1971,8 +1971,8 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tContext context = new Context\n
 		\t\t\t\t\t\t{\n
-		\t\t\t\t\t\t\t\t\tVocabulary = 'a',\n
-		\t\t\t\t\t\t\t\t\tSource = "aaa"\n
+		\t\t\t\t\t\t\t\t\tVocabulary = \'a\',\n
+		\t\t\t\t\t\t\t\t\tSource = \"aaa\"\n
 		\t\t\t\t\t\t};\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tvar expression = new NonterminalExpression();\n
@@ -1986,8 +1986,8 @@
 		{\n
 		\t\t\t// Контекст распознающей грамматики языка:\n
 		\t\t\t// V = {a}; L = V*;\n
-		\t\t\t// Правильные цепочки: a, aa, aaa, ...\n
-		\t\t\t// Неправильные цепочки: b, ab, aba, ...\n
+		\t\t\t// Правильные цепочки: a, aa, aaa, \n
+		\t\t\t// Неправильные цепочки: b, ab, aba, \n
 		\t\t\t\n
 		\t\t\tpublic string Source { get; set; }\n
 		\t\t\tpublic char Vocabulary { get; set; }\n
@@ -2004,8 +2004,7 @@
 		{\n
 		\t\t\tpublic override void Interpret( Context context )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tcontext.Result =\n
-		\t\t\t\t\t\tcontext.Source[ context.Position ] == context.Vocabulary;\n
+		\t\t\t\t\t\tcontext.Result = context.Source[ context.Position ] == context.Vocabulary;\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -2214,6 +2213,77 @@
 		}\n
 		\n
 	</string>
-	
+    <string name="memento_definition">
+        <![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+        Паттерн Memento - не нарушая инкапсуляции, фиксирует и выносит за пределы
+        объекта-хозяина его внутреннее состояние так, чтобы позднее это вынесенное
+        состояние можно было восстановить в исходном объекте-хозяине.
+    </string>
+    <string name="memento_diagram_description">
+        <![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Memento</b>]]> - хранитель, хранит в себе состояние объекта-хозяина класса <![CDATA[<b>Originator</b>]]>.
+        Размер хранимого состояния может быть разный и зависит от
+        потребностей хозяина. Объект-хранитель должен запрещать кому бы то ни было,
+        кроме объекта-хозяина получать доступ к хранимому состоянию.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Originator</b>]]> - хозяин, создает объекта-хранителя и помещает в него свое
+        текущее внутреннее состояние. Впоследствии использует объекта-хранителя для
+        восстановления своего ранее сохраненного состояния.<![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Caretaker</b>]]> - посыльный, отвечает за сохранность объекта-хранителя и не
+        производит над ним никаких действий, и не исследует его внутреннее содержимое.
+        <![CDATA[<br>]]><![CDATA[<br>]]>
+
+        <![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+        <![CDATA[&#160;&#160;&#160;&#160;]]>	* Объект-посыльный (<![CDATA[<b>Caretaker</b>]]>) получает от объекта-хозяина (<![CDATA[<b>Originator</b>]]>) объект-хранитель
+        (<![CDATA[<b>Memento</b>]]>), некоторое время держит его у себя, а затем возвращает объекту-хозяину.
+    </string>
+    <string name="memento_code">
+        class Program\n
+        {\n
+        \t\t\tstatic void Main()\n
+        \t\t\t{\n
+        \t\t\t\t\t\tOriginator originator = new Originator();\n
+        \t\t\t\t\t\toriginator.Stаte = \"On\";\n
+        \t\t\t\t\t\t\n
+        \t\t\t\t\t\tCaretaker caretaker = new Caretaker();\n
+        \t\t\t\t\t\tcaretaker.Memento = originator.CreateMemento();\n
+        \t\t\t\t\t\t\n
+        \t\t\t\t\t\toriginator.Stаte = \"Off\";\n
+        \t\t\t\t\t\t\n
+        \t\t\t\t\t\toriginator.SetMemento( caretaker.Memento );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Originator\n
+        {\n
+        \t\t\tpublic string Stаte { get; set; }\n
+        \t\t\t\n
+        \t\t\tpublic void SetMemento( Memento memento )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tStаte = memento.Stаte;\n
+        \t\t\t}\n
+        \t\t\t\n
+        \t\t\tpublic Memento CreateMemento()\t\t\t\n
+        \t\t\t{\n
+        \t\t\t\t\t\treturn new Memento( Stаte );\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Memento\n
+        {\n
+        \t\t\tpublic string Stаte { get; private set; }\n
+        \t\t\t\n
+        \t\t\tpublic Memento( string state )\n
+        \t\t\t{\n
+        \t\t\t\t\t\tthis.Stаte = state;\n
+        \t\t\t}\n
+        }\n
+        \n
+        class Caretaker\n
+        {\n
+        \t\t\tpublic Memento Memento { get; set; }\n
+        }\n
+    </string>
+
+    
 	
 	</resources>
