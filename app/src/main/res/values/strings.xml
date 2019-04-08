@@ -1788,5 +1788,97 @@
 		}\n
 	</string>
 	
+	<string name="flyweight_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн FLYWEIGHT – описывает правильное применение техники создания «разделяемых объектов», для получения возможности эффективного использования большого числа объектов.
+	</string>
+	<string name="flyweight_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Flyweight</b>]]> – приспособленец, предоставляет интерфейс, при помощи которого 
+		разделяемые объекты (приспособленцы) могут подключать внешнее состояние и воздействовать на него.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>ConcreteFlyweight</b>]]> – разделяемый конкретный приспособленец, класс разделяемого 
+		объекта. Реализует интерфейс класса <![CDATA[<b>Flyweight</b>]]> и добавляет при необходимости внутреннее состояние.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>UnsharedConcreteFlyweight</b>]]> – неразделяемый конкретный приспособленец. Приспособленцами принято называть разделяемые объекты. 
+		Неразделяемый приспособленец – «неразделяемо-разделяемый объект». Такая формулировка звучит взаимоисключающе. Понятно, что объект класса <![CDATA[<b>UnsharedConcreteFlyweight</b>]]> не будет являться приспособленцем, то есть не будет разделяемым и соответственно не будет происходить выделения части его внутреннего состояния во внешнее. Но тем не менее составители каталога включили в имя данного участника слово <![CDATA[<b>Flyweight</b>]]>, допуская, что не все подклассы класса <![CDATA[<b>Flyweight</b>]]> должны быть разделяемыми. Такой подход к именованию данного участника спорный, но он имеет место.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>FlyweightFactory</b>]]> – фабрика приспособленцев, создает 
+		разделяемые и неразделяемые объекты. Когда клиент запрашивает разделяемый 
+		объект, фабрика ищет этот объект в «пуле приспособленцев» и если находит, то возвращает ссылку на него, иначе создает новый объект, сохраняет его в «пуле приспособленцев» и возвращает ссылку на созданный объект. Неразделяемые объекты каждый раз создаются заново.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> – клиент, работает с разделяемыми и неразделяемыми объектами. Формирует и может хранить внешнее состояние разделяемых объектов.<![CDATA[<br>]]><![CDATA[<br>]]>
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Состояние, используемое при работе с <![CDATA[<b>ConcreteFlyweight</b>]]> разделяется на 
+		внутреннее и внешнее. Внутреннее состояние хранится непосредственно в самом объекте <![CDATA[<b>ConcreteFlyweight</b>]]>. Внешнее состояние хранится в клиенте (<![CDATA[<b>Client</b>]]>) и передается объекту-приспособленцу в качестве аргументов методов.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиенты не создают экземпляры <![CDATA[<b>ConcreteFlyweight</b>]]> напрямую через вызов 
+		конструктора, а получают их от объекта <![CDATA[<b>FlyweightFactory</b>]]>. Такой подход позволяет гарантированно получить разделяемый объект.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиентам рекомендуется создавать экземпляры <![CDATA[<b>UnsharedConcreteFlyweight</b>]]> при 
+		помощи объекта <![CDATA[<b>FlyweightFactory</b>]]>, так как в ходе эволюции программы может потребоваться преобразовать неразделяемые объекты в разделяемые и если неразделяемые объекты создавались напрямую через вызов конструктора, то придется вносить изменения в клиентский код.<![CDATA[<br>]]>
+	</string>
+	<string name="flyweight_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tint extrinsicState = 0;\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tFlyweight flyweight = null;\n
+		\t\t\t\t\t\tFlyweightFactory factory = new FlyweightFactory();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tflyweight = factory.GetFlyweight("1");\n
+		\t\t\t\t\t\tflyweight.Operation(extrinsicState);\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tflyweight = factory.GetFlyweight("10");\n
+		\t\t\t\t\t\tflyweight.Operation(extrinsicState);\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tflyweight = new UnsharedConcreteFlyweight();\n
+		\t\t\t\t\t\tflyweight.Operation(extrinsicState);\n
+		\t\t\t}\n
+		}\n
+		\n
+		class FlyweightFactory\n
+		{\n
+		\t\t\tHashtable pool = new Hashtable\n
+		\t\t\t{\n
+		\t\t\t\t\t\t{"1", new ConcreteFlyweight()},\n
+		\t\t\t\t\t\t{"2", new ConcreteFlyweight()},\n
+		\t\t\t\t\t\t{"3", new ConcreteFlyweight()}\n
+		\t\t\t};\n
+		\t\t\t\n
+		\t\t\tpublic Flyweight GetFlyweight(string key)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif (!pool.ContainsKey(key))\n
+		\t\t\t\t\t\t\t\t\tpool.Add(key, new ConcreteFlyweight());\n
+		\t\t\t\t\t\t\t\t\t\n
+		\t\t\t\t\t\treturn pool[key] as Flyweight;\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Flyweight\n
+		{\n
+		\t\t\tpublic abstract void Operation(int extrinsicState);\n
+		}\n
+		\n
+		class ConcreteFlyweight : Flyweight\n
+		{\n
+		\t\t\tint intrinsicState;\n
+		\t\t\t\n
+		\t\t\tpublic override void Operation(int extrinsicState)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tintrinsicState = extrinsicState;\n
+		\t\t\t}\n
+		}\n
+		\n
+		class UnsharedConcreteFlyweight : Flyweight\n
+		{\n
+		\t\t\tint allState;\n
+		\t\t\t\n
+		\t\t\tpublic override void Operation(int extrinsicState)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tallState = extrinsicState;\n
+		\t\t\t}\n
+		}\n
+		\n
+	</string>
+	
+	
 	
 	</resources>
