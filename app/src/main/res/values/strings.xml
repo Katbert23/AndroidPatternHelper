@@ -2283,7 +2283,137 @@
         \t\t\tpublic Memento Memento { get; set; }\n
         }\n
     </string>
+	
+	<string name="visitor_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+	Паттерн Visitor – позволяет единообразно обойти набор элементов с 
+	разнородными интерфейсами (т.е. набор объектов разных классов не 
+	приводя их к общему базовому типу), а также позволяет добавить новый 
+	метод (функцию) в класс объекта, при этом не изменяя сам класс этого объекта.
+	</string>
+	<string name="visitor_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Visitor</b>]]> - посетитель, предоставляет абстрактный интерфейс 
+		(набор методов VisitConcret<![CDATA[<b>Element</b>]]>X) для работы с объектами класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Element</b>]]>X. 
+		Имя метода VisitConcret<![CDATA[<b>Element</b>]]>X включает в себя имя класса, экземпляр которого вызывает данный метод.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Visitor</b>]]> - конкретный посетитель, реализует абстрактный интерфейс, 
+		предоставляемый абстрактным классом <![CDATA[<b>Visitor</b>]]>. Каждая операция VisitConcret<![CDATA[<b>Element</b>]]>X 
+		реализует фрагмент алгоритма, специфичного для каждого отдельного класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Element</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Element</b>]]> - элемент, предоставляет абстрактный метод Accept, который принимает аргумент 
+		типа <![CDATA[<b>Visitor</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Element</b>]]> - конкретный элемент, реализует абстрактный метод Accept, который 
+		принимает аргумент типа <![CDATA[<b>Visitor</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>ObjectStructure</b>]]> - структура объектов, представляет собой набор объектов типа <![CDATA[<b>Element</b>]]>. Может быть, 
+		как обычной коллекцией, так и древообразной структурой.<![CDATA[<br>]]><![CDATA[<br>]]>
 
-    
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент использующий паттерн <![CDATA[<b>Visitor</b>]]> должен создать экземпляр класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Visitor</b>]]> и с его 
+		помощью обойти каждый элемент объектной структуры (коллекции).<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* При посещении экземпляром класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Visitor</b>]]> определенного элемента (экземпляра класса 
+		<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Element</b>]]>) из объектной структуры, этот элемент вызывает на посетителе метод VisitConcret<![CDATA[<b>Element</b>]]>X, 
+		соответствующий классу данного элемента. Элемент передает этому методу себя в качестве аргумента, 
+		чтобы посетитель мог получить доступ к членам (состоянию и поведению) данного элемента.<![CDATA[<br>]]>
+	</string>
+	<string name="visitor_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tvar structure = new ObjectStructure();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tstructure.Add( new ConcreteElementA() );\n
+		\t\t\t\t\t\tstructure.Add( new ConcreteElementB() );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tstructure.Accept( new ConcreteVisitor1() );\n
+		\t\t\t\t\t\tstructure.Accept( new ConcreteVisitor2() );\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Visitor\n
+		{\n
+		\t\t\tpublic abstract void VisitElementA( ElementA elementA );\n
+		\t\t\tpublic abstract void VisitElementB( ElementB elementB );\n
+		}\n
+		\n
+		class ConcreteVisitor1 : Visitor\n
+		{\n
+		\t\t\tpublic override void VisitElementA( ElementA elementA )\n
+		\t\t\t{\n
+		\t\t\t\t\t\telementA.OperationA();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void VisitElementB( ElementB elementB )\n
+		\t\t\t{\n
+		\t\t\t\t\t\telementB.OperationB();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteVisitor2 : Visitor\n
+		{\n
+		\t\t\tpublic override void VisitElementA( ElementA elementA )\n
+		\t\t\t{\n
+		\t\t\t\t\t\telementA.OperationA();\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic override void VisitElementB( ElementB elementB )\n
+		\t\t\t{\n
+		\t\t\t\t\t\telementB.OperationB();\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ObjectStructure\n
+		{\n
+		\t\t\tArrayList elements = new ArrayList();\n
+		\t\t\t\n
+		\t\t\tpublic void Add(Element element)\n
+		\t\t\t{\n
+		\t\t\t\t\t\telements.Add( element );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Remove( Element element )\n
+		\t\t\t{\n
+		\t\t\t\t\t\telements.Remove( element );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Accept( Visitor visitor )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tforeach ( Element element in elements )\n
+		\t\t\t\t\t\t\t\t\telement.Accept( visitor );\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Element\n
+		{\n
+		\t\t\tpublic abstract void Accept( Visitor v );\n
+		}\n
+		\n
+		class ElementA : Element\n
+		{\n
+		\t\t\tpublic override void Accept( Visitor v )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tv.VisitElementA( this );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void OperationA()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( \"OperationA\" );\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ElementB : Element\n
+		{\n
+		\t\t\tpublic override void Accept( Visitor v )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tv.VisitElementB( this );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void OperationB()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( \"OperationB\" );\n
+		\t\t\t}\n
+		}\n
+		\n
+	</string>
+
 	
 	</resources>
