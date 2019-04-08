@@ -1943,11 +1943,11 @@
 		}\n
 	</string>
 	
-	<string name="interpretator_definition">
+	<string name="interpreter_definition">
 		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
 		Паттерн Interpreter – позволяет сформировать объектно-ориентированное представление грамматики для заданного языка, а также описывает правила создания механизма интерпретации (толкования) предложений этого языка.
 	</string>
-	<string name="interpretator_diagram_description">
+	<string name="interpreter_diagram_description">
 		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>AbstractExpression</b>]]> - абстрактное выражение, предоставляет абстрактный 
 		метод <![CDATA[<b>Interpret</b>]]>, который будет реализован во всех узлах абстрактного синтаксического дерева.<![CDATA[<br>]]>
@@ -1964,7 +1964,7 @@
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиент строит (или получает в готовом виде) абстрактное синтаксическое 
 		дерево, представляющее собой отдельное предложение на языке заданном определенной грамматикой. Дерево составляется из экземпляров классов <![CDATA[<b>TerminalExpression</b>]]> и <![CDATA[<b>NonTerminalExpression</b>]]>.
 	</string>
-	<string name="interpretator_code">
+	<string name="interpreter_code">
 		class Program\n
 		{\n
 		\t\t\tstatic void Main()\n
@@ -2032,5 +2032,188 @@
 		}\n
 		\n
 	</string>
+	
+	<string name="mediator_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн Mediator – предоставляет объект-посредник, скрывающий способ взаимодействия множества других объектов-коллег. Объект-посредник обеспечивает слабую связанность системы, избавляя объектов-коллег от необходимости явно ссылаться друг на друга, позволяя тем самым независимо изменять взаимодействия между объектами-коллегами.
+	</string>
+	<string name="mediator_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Mediator</b>]]> - посредник, предоставляет интерфейс для организации процесса по обмену информацией между объектами типа <![CDATA[<b>Colleague</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Mediator</b>]]> - конкретный посредник, реализует алгоритм взаимодействия между объектами-коллегами.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Colleague</b>]]> - коллега, предоставляет интерфейс для организации процесса взаимодействия объектов-коллег с объектом типа <![CDATA[<b>Mediator</b>]]>.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Colleague</b>]]> - конкретный коллега, каждый объект-коллега знает только об объекте-медиаторе. Все объекты-коллеги обмениваются информацией только через посредника (медиатора).<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Объекты-коллеги (<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Colleague</b>]]>) посылают запросы объекту-посреднику (<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Mediator</b>]]>), а он в свою очередь перенаправляет полученные запросы другим объектам-коллегам, тем самым организуя процесс взаимодействия между объектами-коллегами.
+	</string>
+	<string name="mediator_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tvar mediator = new ConcreteMediator();\n
+		\t\t\t\t\t\tvar colleague1 = new ConcreteColleague1( mediator );\n
+		\t\t\t\t\t\tvar colleague2 = new ConcreteColleague2( mediator );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tmediator.Colleague1 = colleague1;\n
+		\t\t\t\t\t\tmediator.Colleague2 = colleague2;\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tcolleague1.Send( \"Message 1\" );\n
+		\t\t\t\t\t\tcolleague2.Send( \"Message 2\" );\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Mediator\n
+		{\n
+		\t\t\tpublic abstract void Send( string msg, Colleague colleague );\n
+		}\n
+		\n
+		class ConcreteMediator : Mediator\n
+		{\n
+		\t\t\tpublic ConcreteColleague1 Colleague1 { get; set; }\n
+		\t\t\tpublic ConcreteColleague2 Colleague2 { get; set; }\n
+		\t\t\t\n
+		\t\t\tpublic override void Send( string msg, Colleague colleague )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif ( Colleague1 == colleague )\n
+		\t\t\t\t\t\t\t\t\tColleague2.Notify( msg );\n
+		\t\t\t\t\t\telse\n
+		\t\t\t\t\t\t\t\t\tColleague1.Notify( msg );\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Colleague\n
+		{\n
+		\t\t\tprotected Mediator mediator;\n
+		\t\t\t\n
+		\t\t\tpublic Colleague(Mediator mediator)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.mediator = mediator;\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteColleague1 : Colleague\n
+		{\n
+		\t\t\tpublic ConcreteColleague1( Mediator mediator ) : base( mediator ){}\n
+		\t\t\t\n
+		\t\t\tpublic void Send( string message )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tmediator.Send( message, this );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Notify( string message )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( message );\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteColleague2 : Colleague\n
+		{\n
+		\t\t\tpublic ConcreteColleague2( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\t\n
+		\t\t\tpublic void Send( string message )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tmediator.Send( message, this );\n
+		\t\t\t}\n
+		\t\t\t\n
+		\t\t\tpublic void Notify( string message )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( message );\n
+		\t\t\t}\n
+		}\n
+		\n
+		\n
+		//Более "живой" пример\n
+		//Посредник покупает свежие помидоры у фермера, отправляет эти помидоры на консервный завод для переработки в кетчуп, а полученный кетчуп оптом продает в магазин розничной торговли.Достоинство такого подхода заключается в том, что фермеру не требуется знать о заводе по переработке помидоров и в какой продукт будет «превращен» выращенный им помидор. Заводу не требуется заботиться о сбыте своей продукции так как посредник сам позаботится о поиске подходящего магазина розничной торговли для того чтобы товар донести до покупателя. Каждый занимается своим делом.\n
+		\n
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tvar mediator = new ConcreteMediator();\n
+		\t\t\t\t\t\tvar farmer = new Farmer( mediator );\n
+		\t\t\t\t\t\tvar cannery = new Cannery( mediator \n
+		\t\t\t\t\t\tvar shop = new Shop( mediator );\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tmediator.Farmer = farmer;\n
+		\t\t\t\t\t\tmediator.Cannery = cannery;\n
+		\t\t\t\t\t\tmediator.Shop = shop;\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\tfarmer.GrowTomato();\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Mediator\n
+		{\n
+		\t\t\tpublic abstract void Send( string msg, Colleague colleague );\n
+		}\n
+		\n
+		abstract class Colleague\n
+		{\n
+		\t\t\tprotected Mediator mediator;\n
+		\t\t\t\n
+		\t\t\tpublic Colleague( Mediator mediator )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tthis.mediator = mediator;\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteMediator : Mediator\n
+		{\n
+		\t\t\tpublic Farmer Farmer { get; set; }\n
+		\t\t\tpublic Cannery Cannery { get; set; }\n
+		\t\t\tpublic Shop Shop { get; set; }\n
+		\t\t\t\n
+		\t\t\tpublic override void Send( string message, Colleague colleague )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif ( colleague == Farmer )\n
+		\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\tCannery.MakeKetchup( message );\n
+		\t\t\t\t\t\t}\n
+		\t\t\t\t\t\telse if (colleague == Cannery)\n
+		\t\t\t\t\t\t{\n
+		\t\t\t\t\t\t\t\t\tShop.SellKetchup( message );\n
+		\t\t\t\t\t\t}\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Farmer : Colleague\n
+		{\n
+		\t\t\tpublic Farmer( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\t\n
+		\t\t\tpublic void GrowTomato()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tstring tomato = \"Tomato\";\t\t\t\t\t\t\n
+		\t\t\t\t\t\tConsole.WriteLine(this.GetType().Name + \" raised \" + tomato);\n
+		\t\t\t\t\t\tmediator.Send(tomato, this);\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Cannery : Colleague\n
+		{\n
+		\t\t\tpublic Cannery( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\t\n
+		\t\t\tpublic void MakeKetchup( string message )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tstring ketchup = message + \"Ketchup\";\n
+		\t\t\t\t\t\tConsole.WriteLine( this.GetType().Name\n
+		\t\t\t\t\t\t+ \" produced \" + ketchup );\n
+		\t\t\t\t\t\tmediator.Send( ketchup, this );\n
+		\t\t\t}\n
+		}\n
+		\n
+		class Shop : Colleague\n
+		{\n
+		\t\t\tpublic Shop( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\t\n
+		\t\t\tpublic void SellKetchup( string message )\n
+		\t\t\t{\n
+		\t\t\t\t\t\tConsole.WriteLine( this.GetType().Name + \" sold \" + message );\n
+		\t\t\t}\n
+		}\n
+		\n
+	</string>
+	
 	
 	</resources>

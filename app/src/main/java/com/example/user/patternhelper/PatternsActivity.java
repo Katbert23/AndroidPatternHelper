@@ -47,6 +47,7 @@ public class PatternsActivity extends AppCompatActivity {
 		patternRusEnNames.put("Приспособленец", "flyweight");
 		patternRusEnNames.put("Цепочка обязанностей", "chain_of_responsibility");
 		patternRusEnNames.put("Интерпретатор", "interpretator");
+		patternRusEnNames.put("Посредник", "Mediator");
 
         String[] patternsList = new String[patternRusEnNames.size()];
         int index = 0;
