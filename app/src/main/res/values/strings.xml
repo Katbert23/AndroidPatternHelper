@@ -1879,6 +1879,70 @@
 		\n
 	</string>
 	
+	<string name="chain_of_responsibility_definition">
+		<![CDATA[<b>Определение:</b>]]><![CDATA[<br>]]>
+		Паттерн Chain of Responsibility - позволяет избежать привязки объекта-отправителя запроса к
+		объекту-получателю запроса, при этом давая шанс обработать этот запрос нескольким объектам. Паттерн
+		Chain of Responsibility – связывает в цепочку объекты-получатели запроса и передает запрос вдоль этой
+		цепочки, пока один из объектов, составляющих эту цепочку не обработает передаваемый запрос.
+	</string>
+	<string name="chain_of_responsibility_diagram_description">
+		<![CDATA[<b>Участники:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Handler</b>]]> - Обработчик, предоставляет интерфейс для 
+		обработки запросов. <![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>ConcreteHandler</b>]]> - конкретный обработчик, обрабатывает 
+		запрос, который предназначен ему. Имеет ссылку на своего преемника, которому передает запрос в случае, если сам не в состоянии его обработать.<![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	<![CDATA[<b>Client</b>]]> - клиент, посылает запрос определенному объекту 
+		класса <![CDATA[<b>ConcreteHandler</b>]]>, который находится в цепочке объектов-обработчиков.<![CDATA[<br>]]><![CDATA[<br>]]>
+
+		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
+		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Когда клиент посылает запрос, этот запрос передается по цепочке, пока 
+		один из объектов <![CDATA[<b>ConcreteHandler</b>]]> не обработает этот запрос.
+	</string>
+	<string name="chain_of_responsibility_code">
+		class Program\n
+		{\n
+		\t\t\tstatic void Main()\n
+		\t\t\t{\n
+		\t\t\t\t\t\tHandler h1 = new ConcreteHandler1();\n
+		\t\t\t\t\t\tHandler h2 = new ConcreteHandler2();\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\th1.Successor = h2;\n
+		\t\t\t\t\t\t\n
+		\t\t\t\t\t\th1.HandleRequest(1);\n
+		\t\t\t\t\t\th1.HandleRequest(2);\n
+		\t\t\t}\n
+		}\n
+		\n
+		abstract class Handler\n
+		{\n
+		\t\t\tpublic Handler Successor { get; set; }\n
+		\t\t\tpublic abstract void HandleRequest(int request);\n
+		}\n
+		\n
+		class ConcreteHandler1 : Handler\n
+		{\n
+		\t\t\tpublic override void HandleRequest(int request)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif (request == 1)\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine("One");\n
+		\t\t\t\t\t\telse if (Successor != null)\n
+		\t\t\t\t\t\t\t\t\tSuccessor.HandleRequest(request);\n
+		\t\t\t}\n
+		}\n
+		\n
+		class ConcreteHandler2 : Handler\n
+		{\n
+		\t\t\tpublic override void HandleRequest(int request)\n
+		\t\t\t{\n
+		\t\t\t\t\t\tif (request == 2)\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine("Two");\n
+		\t\t\t\t\t\telse if (Successor != null)\n
+		\t\t\t\t\t\t\t\t\tSuccessor.HandleRequest(request);\n
+		\t\t\t}\n
+		}\n
+	</string>
+	
 	
 	
 	</resources>
