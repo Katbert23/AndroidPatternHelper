@@ -38,8 +38,10 @@
         \t\t\tstatic void Main()\n
         \t\t\t{\n
         \t\t\t\t\t\tContext context;\n
+        \n
         \t\t\t\t\t\tcontext = new Context( new ConcreteStrategyA() );\n
         \t\t\t\t\t\tcontext.method();\n
+        \n
         \t\t\t\t\t\tcontext = new Context( new ConcreteStrategyB() );\n
         \t\t\t\t\t\tcontext.method();\n
         \t\t\t}\n
@@ -473,7 +475,7 @@
         {\n
         \t\t\tprivate static volatile Singleton uniqueGetInstance = null;\n
         \t\t\tprivate static object syncRoot = new Object();\n
-        \t\t\tprivate Singleton() {}\n
+        \t\t\tprivate Singletоn() {}\n
         \t\t\t\n
         \t\t\tpublic static Singleton GetInstance\n
         \t\t\t{\n
@@ -780,11 +782,11 @@
 
 		<![CDATA[<b>Отношения:</b>]]><![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Клиенты (<![CDATA[<b>Client</b>]]>) взаимодействуют с элементами, входящими в состав дерева, через
-		интерфейс (набор методов) предоставленный абстрактным классом <![CDATA[<b>Component</b>]]>.
+		интерфейс (набор методов) предоставленный абстрактным классом <![CDATA[<b>Component</b>]]>.<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Если метод вызывается на листовом объекте (<![CDATA[<b>Leaf</b>]]>), то объект <![CDATA[<b>Leaf</b>]]>
-		и обрабатывает поступивший запрос (т.е. выполняет функциональность, заложенную в тело его метода).
+		и обрабатывает поступивший запрос (т.е. выполняет функциональность, заложенную в тело его метода).<![CDATA[<br>]]>
 		<![CDATA[&#160;&#160;&#160;&#160;]]>	* Если метод вызывается на составном (узловом) объекте (<![CDATA[<b>Composite</b>]]>), то объект
-		<![CDATA[<b>Composite</b>]]> перенаправляет запрос (вызывает метод) своим потомкам, возможно при этом выполняя некоторые дополнительные действия до или после перенаправления запроса.
+		<![CDATA[<b>Composite</b>]]> перенаправляет запрос (вызывает метод) своим потомкам, возможно при этом выполняя некоторые дополнительные действия до или после перенаправления запроса.<![CDATA[<br>]]>
 	</string>
     <string name="composite_code">
 		class Program\n
@@ -972,10 +974,10 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tEnumerable enumerable = new Enumerable();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tenumerable[ 0 ] = \"Element A\";\n
-		\t\t\t\t\t\tenumerable[ 1 ] = \"Element B\";\n
-		\t\t\t\t\t\tenumerable[ 2 ] = \"Element C\";\n
-		\t\t\t\t\t\tenumerable[ 3 ] = \"Element D\";\n
+		\t\t\t\t\t\tenumerable[ 0 ] = \"Elemеnt A\";\n
+		\t\t\t\t\t\tenumerable[ 1 ] = \"Elemеnt B\";\n
+		\t\t\t\t\t\tenumerable[ 2 ] = \"Elemеnt C\";\n
+		\t\t\t\t\t\tenumerable[ 3 ] = \"Elemеnt D\";\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tforeach (var item in enumerable)\n
 		\t\t\t\t\t\t{\n
@@ -2066,11 +2068,12 @@
 		\t\t\tstatic void Main()\n
 		\t\t\t{\n
 		\t\t\t\t\t\tvar mediator = new ConcreteMediator();\n
+        \n
 		\t\t\t\t\t\tvar colleague1 = new ConcreteColleague1( mediator );\n
 		\t\t\t\t\t\tvar colleague2 = new ConcreteColleague2( mediator );\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tmediator.Colleague1 = colleague1;\n
-		\t\t\t\t\t\tmediator.Colleague2 = colleague2;\n
+		\t\t\t\t\t\tmediator.Cоlleague1 = colleague1;\n
+		\t\t\t\t\t\tmediator.Cоlleague2 = colleague2;\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tcolleague1.Send( \"Message 1\" );\n
 		\t\t\t\t\t\tcolleague2.Send( \"Message 2\" );\n
@@ -2084,15 +2087,15 @@
 		\n
 		class ConcreteMediator : Mediator\n
 		{\n
-		\t\t\tpublic ConcreteColleague1 Colleague1 { get; set; }\n
-		\t\t\tpublic ConcreteColleague2 Colleague2 { get; set; }\n
+		\t\t\tpublic ConcreteColleague1 Cоlleague1 { get; set; }\n
+		\t\t\tpublic ConcreteColleague2 Cоlleague2 { get; set; }\n
 		\t\t\t\n
 		\t\t\tpublic override void Send( string msg, Colleague colleague )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif ( Colleague1 == colleague )\n
-		\t\t\t\t\t\t\t\t\tColleague2.Notify( msg );\n
+		\t\t\t\t\t\tif ( Cоlleague1 == colleague )\n
+		\t\t\t\t\t\t\t\t\tCоlleague2.Notify( msg );\n
 		\t\t\t\t\t\telse\n
-		\t\t\t\t\t\t\t\t\tColleague1.Notify( msg );\n
+		\t\t\t\t\t\t\t\t\tCоlleague1.Notify( msg );\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -2100,7 +2103,7 @@
 		{\n
 		\t\t\tprotected Mediator mediator;\n
 		\t\t\t\n
-		\t\t\tpublic Colleague(Mediator mediator)\n
+		\t\t\tpublic Colleague( Mediator mediator )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.mediator = mediator;\n
 		\t\t\t}\n
@@ -2108,7 +2111,7 @@
 		\n
 		class ConcreteColleague1 : Colleague\n
 		{\n
-		\t\t\tpublic ConcreteColleague1( Mediator mediator ) : base( mediator ){}\n
+		\t\t\tpublic ConcreteCоlleague1( Mediator mediator ) : base( mediator ) {}\n
 		\t\t\t\n
 		\t\t\tpublic void Send( string message )\n
 		\t\t\t{\n
@@ -2123,7 +2126,7 @@
 		\n
 		class ConcreteColleague2 : Colleague\n
 		{\n
-		\t\t\tpublic ConcreteColleague2( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\tpublic ConcreteCоlleague2( Mediator mediator ) : base( mediator ) {}\n
 		\t\t\t\n
 		\t\t\tpublic void Send( string message )\n
 		\t\t\t{\n
@@ -2146,12 +2149,12 @@
 		\t\t\t{\n
 		\t\t\t\t\t\tvar mediator = new ConcreteMediator();\n
 		\t\t\t\t\t\tvar farmer = new Farmer( mediator );\n
-		\t\t\t\t\t\tvar cannery = new Cannery( mediator \n
+		\t\t\t\t\t\tvar cannery = new Cannery( mediator ); \n
 		\t\t\t\t\t\tvar shop = new Shop( mediator );\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tmediator.Farmer = farmer;\n
-		\t\t\t\t\t\tmediator.Cannery = cannery;\n
-		\t\t\t\t\t\tmediator.Shop = shop;\n
+		\t\t\t\t\t\tmediator.Fаrmer = farmer;\n
+		\t\t\t\t\t\tmediator.Cаnnery = cannery;\n
+		\t\t\t\t\t\tmediator.Shоp = shop;\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tfarmer.GrowTomato();\n
 		\t\t\t}\n
@@ -2174,51 +2177,55 @@
 		\n
 		class ConcreteMediator : Mediator\n
 		{\n
-		\t\t\tpublic Farmer Farmer { get; set; }\n
-		\t\t\tpublic Cannery Cannery { get; set; }\n
-		\t\t\tpublic Shop Shop { get; set; }\n
+		\t\t\tpublic Farmer Fаrmer { get; set; }\n
+		\t\t\tpublic Cannery Cаnnery { get; set; }\n
+		\t\t\tpublic Shop Shоp { get; set; }\n
 		\t\t\t\n
 		\t\t\tpublic override void Send( string message, Colleague colleague )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tif ( colleague == Farmer )\n
+		\t\t\t\t\t\tif ( colleague == Fаrmer )\n
 		\t\t\t\t\t\t{\n
 		\t\t\t\t\t\t\t\t\tCannery.MakeKetchup( message );\n
 		\t\t\t\t\t\t}\n
-		\t\t\t\t\t\telse if (colleague == Cannery)\n
+		\t\t\t\t\t\telse if (colleague == Cаnnery)\n
 		\t\t\t\t\t\t{\n
-		\t\t\t\t\t\t\t\t\tShop.SellKetchup( message );\n
+		\t\t\t\t\t\t\t\t\tShоp.SellKetchup( message );\n
 		\t\t\t\t\t\t}\n
 		\t\t\t}\n
 		}\n
 		\n
 		class Farmer : Colleague\n
 		{\n
-		\t\t\tpublic Farmer( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\tpublic Fаrmer( Mediator mediator ) : base( mediator ) {}\n
 		\t\t\t\n
 		\t\t\tpublic void GrowTomato()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tstring tomato = \"Tomato\";\t\t\t\t\t\t\n
-		\t\t\t\t\t\tConsole.WriteLine(this.GetType().Name + \" raised \" + tomato);\n
-		\t\t\t\t\t\tmediator.Send(tomato, this);\n
+		\t\t\t\t\t\tstring tomato = \"Tomato\";\n
+        \n
+		\t\t\t\t\t\tConsole.WriteLine( this.GetType().Name + \" raised \" + tomato );\n
+        \n
+		\t\t\t\t\t\tmediator.Send( tomato, this );\n
 		\t\t\t}\n
 		}\n
 		\n
 		class Cannery : Colleague\n
 		{\n
-		\t\t\tpublic Cannery( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\tpublic Cаnnery( Mediator mediator ) : base( mediator ) {}\n
 		\t\t\t\n
 		\t\t\tpublic void MakeKetchup( string message )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tstring ketchup = message + \"Ketchup\";\n
+        \n
 		\t\t\t\t\t\tConsole.WriteLine( this.GetType().Name\n
 		\t\t\t\t\t\t+ \" produced \" + ketchup );\n
+        \n
 		\t\t\t\t\t\tmediator.Send( ketchup, this );\n
 		\t\t\t}\n
 		}\n
 		\n
 		class Shop : Colleague\n
 		{\n
-		\t\t\tpublic Shop( Mediator mediator ) : base( mediator ) {}\n
+		\t\t\tpublic Shоp( Mediator mediator ) : base( mediator ) {}\n
 		\t\t\t\n
 		\t\t\tpublic void SellKetchup( string message )\n
 		\t\t\t{\n
@@ -2259,11 +2266,11 @@
         \t\t\t\t\t\toriginator.Stаte = \"On\";\n
         \t\t\t\t\t\t\n
         \t\t\t\t\t\tCaretaker caretaker = new Caretaker();\n
-        \t\t\t\t\t\tcaretaker.Memento = originator.CreateMemento();\n
+        \t\t\t\t\t\tcaretaker.Memеnto = originator.CreateMemеnto();\n
         \t\t\t\t\t\t\n
         \t\t\t\t\t\toriginator.Stаte = \"Off\";\n
         \t\t\t\t\t\t\n
-        \t\t\t\t\t\toriginator.SetMemento( caretaker.Memento );\n
+        \t\t\t\t\t\toriginator.SetMemеnto( caretaker.Memеnto );\n
         \t\t\t}\n
         }\n
         \n
@@ -2271,12 +2278,12 @@
         {\n
         \t\t\tpublic string Stаte { get; set; }\n
         \t\t\t\n
-        \t\t\tpublic void SetMemento( Memento memento )\n
+        \t\t\tpublic void SetMemеnto( Memento memento )\n
         \t\t\t{\n
         \t\t\t\t\t\tStаte = memento.Stаte;\n
         \t\t\t}\n
         \t\t\t\n
-        \t\t\tpublic Memento CreateMemento()\t\t\t\n
+        \t\t\tpublic Memento CreateMemеnto()\t\t\t\n
         \t\t\t{\n
         \t\t\t\t\t\treturn new Memento( Stаte );\n
         \t\t\t}\n
@@ -2286,7 +2293,7 @@
         {\n
         \t\t\tpublic string Stаte { get; private set; }\n
         \t\t\t\n
-        \t\t\tpublic Memento( string state )\n
+        \t\t\tpublic Memеnto( string state )\n
         \t\t\t{\n
         \t\t\t\t\t\tthis.Stаte = state;\n
         \t\t\t}\n
@@ -2294,7 +2301,7 @@
         \n
         class Caretaker\n
         {\n
-        \t\t\tpublic Memento Memento { get; set; }\n
+        \t\t\tpublic Memento Memеnto { get; set; }\n
         }\n
     </string>
 	

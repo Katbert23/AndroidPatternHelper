@@ -38,7 +38,7 @@ public class CodeColor {
                     "static","as ",
                     "null", "return", "volatile", "if ", "lock",
                     "object", "base", "throw", "var", "value",
-                    "false", "true", "bool"
+                    "false", "true", "bool", "char", "else"
 
             };
     //endregion
@@ -76,12 +76,18 @@ public class CodeColor {
                     "ObjectStructure", "ConcreteElementA", "ConcreteElementB", "ConcreteVisitor1", "ConcreteVisitor2",
                     "Element", "ElementA", "ElementB", "Visitor",
                     "Flyweight", "FlyweightFactory", "UnsharedConcreteFlyweight", "HashTable",
-                    "ConcreteFlyweight"
+                    "ConcreteFlyweight",
+                    "Memento", "Originator", "Caretaker",
+                    "AbstractExpression", "TerminalExpression", "NonterminalExpression",
+                    "Mediator", "ConcreteMediator", "Colleague", "ConcreteColleague1", "ConcreteColleague2",
+                    "Farmer", "Cannery", "Shop",
+                    "Handler", "ConcreteHandler1", "ConcreteHandler2"
             };
     //endregion
 
     int textColor;
     String patText = "\".*\"";
+    String patChar = "\'.*\'";
 
     int commentColor;
     String patComment = "//.*";
@@ -100,8 +106,13 @@ public class CodeColor {
         SpannableStringBuilder sp = new SpannableStringBuilder(originalCode);
         sp = getColorBlockCode(sp, keywords, keywordColor);
         sp = getColorBlockCode(sp, serviceWords, serviceColor);
+
         String[] text = new String[]{patText};
         sp = getColorBlockCode(sp,text,textColor);
+
+        text = new String[]{patChar};
+        sp = getColorBlockCode(sp,text,textColor);
+
         text = new String[]{patComment};
         sp = getColorBlockCode(sp,text,commentColor);
 
