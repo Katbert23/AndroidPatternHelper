@@ -72,7 +72,11 @@ public class CodeColor {
                     "CSharpLanguage", "CorporateProgrammer", "ILanguage",
                     "Enumerable", "IEnumerable", "IEnumerator", "Enumerator",
                     "Prototype", "ConcretePrototype1", "ConcretePrototype2",
-                    "Targеt", "Object"
+                    "Targеt", "Object",
+                    "ObjectStructure", "ConcreteElementA", "ConcreteElementB", "ConcreteVisitor1", "ConcreteVisitor2",
+                    "Element", "ElementA", "ElementB", "Visitor",
+                    "Flyweight", "FlyweightFactory", "UnsharedConcreteFlyweight", "HashTable",
+                    "ConcreteFlyweight"
             };
     //endregion
 

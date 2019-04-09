@@ -97,10 +97,10 @@
         для добавления и удаления наблюдателей.<![CDATA[<br>]]>
         <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>IObserver</b>]]> - наблюдатель. Определяет интерфейс обновления для объектов, которые должны
         быть уведомлены об изменении субъекта.<![CDATA[<br>]]>
-        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObservable</b>]]> - конкретный субъект. Сохраняет состояние, предоставляющее
-        интерес для конкретного наблюдателя <![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObserver</b>]]>. Посылает информацию своим
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observable</b>]]> - конкретный субъект. Сохраняет состояние, предоставляющее
+        интерес для конкретного наблюдателя <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observer</b>]]>. Посылает информацию своим
         наблюдателям, когда происходит изменение состояния.<![CDATA[<br>]]>
-        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObserver</b>]]> - конкретный наблюдатель.
+        <![CDATA[&#160;&#160;&#160;]]>	<![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observer</b>]]> - конкретный наблюдатель.
         Хранит ссылку на объект класса <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observable</b>]]>.
         Сохраняет данные, которые должны быть согласованы с данными субъекта. Реализует
         интерфейс обновления, определенный в классе <![CDATA[<b>IObserver</b>]]>, чтобы поддерживать согласованность
@@ -111,11 +111,11 @@
         <![CDATA[&#160;&#160;&#160;]]>	* объект <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observable</b>]]> уведомляет своих наблюдателей о любом изменении,
         которое могло бы привести к рассогласованности состояний наблюдателя и субъекта.<![CDATA[<br>]]>
         <![CDATA[&#160;&#160;&#160;]]>	* после получения от конкретного субъекта уведомления об изменении
-        объект <![CDATA[<b>Concrete</b>]]><![CDATA[<b>IObserver</b>]]> может запросить у субъекта дополнительную информацию,
+        объект <![CDATA[<b>Concrete</b>]]><![CDATA[<b>Observer</b>]]> может запросить у субъекта дополнительную информацию,
         которую используют для того, чтобы оказаться в состоянии, согласованном с
         состоянием субъекта.<![CDATA[<br>]]>
         <![CDATA[&#160;&#160;&#160;]]>	* объект <![CDATA[<b>IObserver</b>]]>, который инициирует запрос на изменение, откладывает свое обновление
-        до получения уведомления от субъекта. Операция notify<![CDATA[<b>IObserver</b>]]> не всегда вызывается
+        до получения уведомления от субъекта. Операция notifyObserver не всегда вызывается
         субъектом. Ее может вызвать и наблюдатель.<![CDATA[<br>]]>
     </string>
     <string name="observer_code">
@@ -127,7 +127,7 @@
         \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n\n
         \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
         \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
-        \t\t\t\t\t\tsubject.State = \"nеw state\";\n\n
+        \t\t\t\t\t\tsubject.Stаte = \"nеw state\";\n\n
         \t\t\t\t\t\tsubject.NotifyObserver();\n
         \t\t\t}\n
         }\n
@@ -137,7 +137,7 @@
         \t\t\tvoid RegisterObserver();\n
         \t\t\tvoid RemoveObserver();\n
         \t\t\tvoid NotifyObserver();\n
-        \t\t\tstring State {get; set;}\n
+        \t\t\tstring Stаte {get; set;}\n
         }\n
         \n
         interface IObserver\n
@@ -145,36 +145,42 @@
         \t\t\tvoid Update();\n
         }\n
         \n
-        ConcreteObservable : IObservable\n
+        class ConcreteObservable : IObservable\n
         {\n
         \t\t\tArrayList observers = new ArrayList();\n
+        \n
         \t\t\tpublic void RegisterObserver( IObserver observer )\n
         \t\t\t{\n
         \t\t\t\t\t\tobservers.Add( observer );\n
         \t\t\t}\n
+        \n
         \t\t\tpublic void RemoveObserver( IObserver observer )\n
         \t\t\t{\n
         \t\t\t\t\t\tobservers.Remove( observer );\n
         \t\t\t}\n
+        \n
         \t\t\tpublic void NotifyObserver()\n
         \t\t\t{\n
         \t\t\t\t\t\tforeach ( IObserver observer in observers )\n
         \t\t\t\t\t\t\t\t\tobserver.Update();\n
+        \n
         \t\t\t}\n
-        \t\t\tpublic string State{ get; set; }\n
+        \t\t\tpublic string Stаte{ get; set; }\n
         }\n
         \n
         class ConcreteObserver : IObserver\n
         {\n
-        \t\t\tstring observerState;\n
+        \t\t\tstring observerStаte;\n
         \t\t\tIObservable subject;\n
+        \n
         \t\t\tpublic ConcreteObserver( IObservable subject )\n
         \t\t\t{\n
         \t\t\t\t\t\tthis.subject = subject;\n
         \t\t\t}\n
+        \n
         \t\t\tpublic void Update()\n
         \t\t\t{\n
-        \t\t\t\t\t\tobserverState = subject.State;\n
+        \t\t\t\t\t\tobserverStаte = subject.Stаte;\n
         \t\t\t}\n
         }\n
         \n
@@ -187,7 +193,7 @@
         \t\t\t\t\t\tIObservable subject = new ConcreteSubject();\n\n
         \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
         \t\t\t\t\t\tsubject.RegisterObserver( new ConcreteObserver( subject ) );\n\n
-        \t\t\t\t\t\tsubject.State = \"nеw state\";\n
+        \t\t\t\t\t\tsubject.Stаte = \"nеw state\";\n
         \t\t\t\t\t\tsubject.NotifyObserver();\n
         \t\t\t}\n
         }\n
@@ -204,36 +210,42 @@
         \t\t\tvoid Update( string state );\n
         }\n
         \n
-        ConcreteObservable : IObservable\n
+        class ConcreteObservable : IObservable\n
         {\n
         \t\t\tArrayList observers = new ArrayList();\n
+        \n
         \t\t\tpublic void RegisterObserver( IObserver observer )\n
         \t\t\t{\n
         \t\t\t\t\t\tobservers.Add( observer );\n
         \t\t\t}\n
+        \n
         \t\t\tpublic void RemoveObserver( IObserver observer )\n
         \t\t\t{\n
         \t\t\t\t\t\tobservers.Remove( observer );\n
         \t\t\t}\n
+        \n
         \t\t\tpublic void NotifyObserver()\n
         \t\t\t{\n
         \t\t\t\t\t\tforeach ( IObserver observer in observers )\n
-        \t\t\t\t\t\t\t\t\tobserver.Update( State );\n
+        \t\t\t\t\t\t\t\t\tobserver.Update( Stаte );\n
         \t\t\t}\n
-        \t\t\tprivate string State{ get; set; }\n
+        \n
+        \t\t\tprivate string Stаte{ get; set; }\n
         }\n
         \n
         class ConcreteObserver : IObserver\n
         {\n
-        \t\t\tstring observerState;\n
+        \t\t\tstring observerStаte;\n
         \t\t\tIObservable subject;\n
+        \n
         \t\t\tpublic ConcreteObserver( IObservable subject )\n
         \t\t\t{\n
         \t\t\t\t\t\tthis.subject = subject;\n
         \t\t\t}\n
+        \n
         \t\t\tpublic void Update( string state )\n
         \t\t\t{\n
-        \t\t\t\t\t\tobserverState = state;\n
+        \t\t\t\t\t\tobserverStаte = state;\n
         \t\t\t}\n
         }\n
         \n
@@ -1112,7 +1124,7 @@
 		{\n
 		\t\t\tCommand command;\n
 		\t\t\t\n
-		\t\t\tpublic void StoreCommand( Command command )\n
+		\t\t\tpublic void StoreCommаnd( Command command )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tthis.command = command;\n
 		\t\t\t}\n
@@ -1133,7 +1145,9 @@
 		\t\t\tpublic static Main()\n
 		\t\t\t{\n
 		\t\t\t\t\t\tRemoteControl remote = new RemoteControl();\n
+        \n
 		\t\t\t\t\t\tLight light = new Light();\n
+        \n
 		\t\t\t\t\t\tLightOnCommand lightOn = new LightOnCommand( light );\n
 		\t\t\t\t\t\tLightOffCommand lightOff = new LightOffCommand( light );\n
 		\t\t\t\t\t\t\n
@@ -1717,7 +1731,7 @@
 		\t\t\tpublic void Show()\n
 		\t\t\t{\n
 		\t\t\t\t\t\tforeach ( string part in parts )\n
-		\t\t\t\t\t\tConsole.WriteLine( part );\n
+		\t\t\t\t\t\t\t\t\tConsole.WriteLine( part );\n
 		\t\t\t}\n
 		}\n
 	</string>
@@ -1818,19 +1832,19 @@
 		{\n
 		\t\t\tstatic void Main()\n
 		\t\t\t{\n
-		\t\t\t\t\t\tint extrinsicState = 0;\n
+		\t\t\t\t\t\tint extrinsicStаte = 0;\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tFlyweight flyweight = null;\n
 		\t\t\t\t\t\tFlyweightFactory factory = new FlyweightFactory();\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tflyweight = factory.GetFlyweight( \"1\" );\n
-		\t\t\t\t\t\tflyweight.Operation( extrinsicState );\n
+		\t\t\t\t\t\tflyweight = factory.GetFlywеight( \"1\" );\n
+		\t\t\t\t\t\tflyweight.Operation( extrinsicStаte );\n
 		\t\t\t\t\t\t\n
-		\t\t\t\t\t\tflyweight = factory.GetFlyweight( \"10\" );\n
-		\t\t\t\t\t\tflyweight.Operation( extrinsicState );\n
+		\t\t\t\t\t\tflyweight = factory.GetFlywеight( \"10\" );\n
+		\t\t\t\t\t\tflyweight.Operation( extrinsicStаte );\n
 		\t\t\t\t\t\t\n
 		\t\t\t\t\t\tflyweight = new UnsharedConcreteFlyweight();\n
-		\t\t\t\t\t\tflyweight.Operation( extrinsicState );\n
+		\t\t\t\t\t\tflyweight.Operation( extrinsicStаte );\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -1843,7 +1857,7 @@
 		\t\t\t\t\t\t{ \"3\" , new ConcreteFlyweight()}\n
 		\t\t\t};\n
 		\t\t\t\n
-		\t\t\tpublic Flyweight GetFlyweight( string key )\n
+		\t\t\tpublic Flyweight GetFlywеight( string key )\n
 		\t\t\t{\n
 		\t\t\t\t\t\tif ( !pool.ContainsKey( key ) )\n
 		\t\t\t\t\t\t\t\t\tpool.Add( key, new ConcreteFlyweight() );\n
@@ -1854,26 +1868,26 @@
 		\n
 		abstract class Flyweight\n
 		{\n
-		\t\t\tpublic abstract void Operation( int extrinsicState );\n
+		\t\t\tpublic abstract void Operation( int extrinsicStаte );\n
 		}\n
 		\n
 		class ConcreteFlyweight : Flyweight\n
 		{\n
-		\t\t\tint intrinsicState;\n
+		\t\t\tint intrinsicStаte;\n
 		\t\t\t\n
-		\t\t\tpublic override void Operation( int extrinsicState )\n
+		\t\t\tpublic override void Operation( int extrinsicStаte )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tintrinsicState = extrinsicState;\n
+		\t\t\t\t\t\tintrinsicStаte = extrinsicStаte;\n
 		\t\t\t}\n
 		}\n
 		\n
 		class UnsharedConcreteFlyweight : Flyweight\n
 		{\n
-		\t\t\tint allState;\n
+		\t\t\tint allStаte;\n
 		\t\t\t\n
-		\t\t\tpublic override void Operation( int extrinsicState )\n
+		\t\t\tpublic override void Operation( int extrinsicStаte )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tallState = extrinsicState;\n
+		\t\t\t\t\t\tallStаte = extrinsicStаte;\n
 		\t\t\t}\n
 		}\n
 		\n
@@ -2331,18 +2345,18 @@
 		\n
 		abstract class Visitor\n
 		{\n
-		\t\t\tpublic abstract void VisitElementA( ElementA elementA );\n
-		\t\t\tpublic abstract void VisitElementB( ElementB elementB );\n
+		\t\t\tpublic abstract void VisitElеmentA( ElementA elementA );\n
+		\t\t\tpublic abstract void VisitElеmentB( ElementB elementB );\n
 		}\n
 		\n
 		class ConcreteVisitor1 : Visitor\n
 		{\n
-		\t\t\tpublic override void VisitElementA( ElementA elementA )\n
+		\t\t\tpublic override void VisitElеmentA( ElementA elementA )\n
 		\t\t\t{\n
 		\t\t\t\t\t\telementA.OperationA();\n
 		\t\t\t}\n
 		\t\t\t\n
-		\t\t\tpublic override void VisitElementB( ElementB elementB )\n
+		\t\t\tpublic override void VisitElеmentB( ElementB elementB )\n
 		\t\t\t{\n
 		\t\t\t\t\t\telementB.OperationB();\n
 		\t\t\t}\n
@@ -2350,12 +2364,12 @@
 		\n
 		class ConcreteVisitor2 : Visitor\n
 		{\n
-		\t\t\tpublic override void VisitElementA( ElementA elementA )\n
+		\t\t\tpublic override void VisitElemеntA( ElementA elementA )\n
 		\t\t\t{\n
 		\t\t\t\t\t\telementA.OperationA();\n
 		\t\t\t}\n
 		\t\t\t\n
-		\t\t\tpublic override void VisitElementB( ElementB elementB )\n
+		\t\t\tpublic override void VisitElemеntB( ElementB elementB )\n
 		\t\t\t{\n
 		\t\t\t\t\t\telementB.OperationB();\n
 		\t\t\t}\n
@@ -2365,7 +2379,7 @@
 		{\n
 		\t\t\tArrayList elements = new ArrayList();\n
 		\t\t\t\n
-		\t\t\tpublic void Add(Element element)\n
+		\t\t\tpublic void Add( Element element )\n
 		\t\t\t{\n
 		\t\t\t\t\t\telements.Add( element );\n
 		\t\t\t}\n
@@ -2391,7 +2405,7 @@
 		{\n
 		\t\t\tpublic override void Accept( Visitor v )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tv.VisitElementA( this );\n
+		\t\t\t\t\t\tv.VisitElemеntA( this );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void OperationA()\n
@@ -2404,7 +2418,7 @@
 		{\n
 		\t\t\tpublic override void Accept( Visitor v )\n
 		\t\t\t{\n
-		\t\t\t\t\t\tv.VisitElementB( this );\n
+		\t\t\t\t\t\tv.VisitElemеntB( this );\n
 		\t\t\t}\n
 		\t\t\t\n
 		\t\t\tpublic void OperationB()\n
