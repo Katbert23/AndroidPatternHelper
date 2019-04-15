@@ -19,5 +19,7 @@
         <activity android:name=".PatternsActivity" />
         <activity android:name=".SolidActivity" />
         <activity android:name=".PatternDescription" />
+        <activity android:name=".SolidDescription"></activity>
     </application>
+
 </manifest>

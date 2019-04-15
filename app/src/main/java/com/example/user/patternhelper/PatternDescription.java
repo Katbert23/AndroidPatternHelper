@@ -43,7 +43,7 @@ public class PatternDescription extends AppCompatActivity {
                 .getIdentifier(fullPatternName,"string", getPackageName()));
         patternDefinition.setText(Html.fromHtml(fullPatternDescription));
 
-        //Схема паттерна
+        //Диаграма паттерна
         patternImage.setImageResource(getResources()
                 .getIdentifier(pattern,"drawable",getPackageName()));
 
